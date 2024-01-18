@@ -39,4 +39,5 @@ sysinfo.txt
 .DS_Store
 .AppleDouble
 .LSOverride
-*.log
+.log
+.exe.log
