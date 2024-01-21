@@ -7,10 +7,13 @@ public class MultiplayerManager: MonoBehaviour
     public static MultiplayerManager multiplayerManager {  get; private set; }
 	private int _playerCount = 1;
 
+	[SerializeField] private Multiplay_SO _multi_SO;
+
+	private List<GameObject> _players = new List<GameObject>();
 
 	private void Awake()
 	{
-		// If there is an instance, and it's not me, delete myself.
+		// If there is an multiplayerManager, and it's not me, delete myself.
 
 		if (multiplayerManager != null && multiplayerManager != this)
 		{
@@ -20,17 +23,36 @@ public class MultiplayerManager: MonoBehaviour
 		{
 			multiplayerManager = this;
 		}
+
+		//stops the game from happening
+		if (!_multi_SO.canStartGame) return;
+		_playerCount = _multi_SO.playerCount;
+
+		Debug.Log("Muldiplayer game started, Players Connected: " + _multi_SO.playerCount);
+
+		for (int i = 0; i < _playerCount; i++)
+		{
+			_players.Add(Instantiate(_multi_SO.playerPrefab));
+			_players[i].transform.position = new Vector3(i * 2, 0, 0);
+			Debug.Log("Player " + i + " has been added");
+			if (i != 0)
+			{
+				Destroy(_players[i].transform.GetChild(2).GetComponent<AudioListener>());
+			}
+		}
+
+		setupPlayerCam();
 	}
 
 	private void Update()
 	{
-		if (Input.GetKey(KeyCode.P))
-		{
-			Debug.Log("Player Count: " + _playerCount);
-		}
+		
 	}
 
-
+	public void setGameOn()
+	{
+		_multi_SO.canStartGame = true;
+	}
 
 	#region player count
 
@@ -53,7 +75,48 @@ public class MultiplayerManager: MonoBehaviour
 		{
 			_playerCount = amount;
 		}
+
+		_multi_SO.playerCount = _playerCount;
 	}
 	#endregion
 
+	#region Camera Setup
+
+	private void setupPlayerCam()
+	{
+		Camera cam;
+		switch (_playerCount)
+		{
+			case 1:
+				cam = _players[0].transform.GetChild(2).GetComponent<Camera>();
+				cam.rect = new Rect(0, 0, 1, 1);
+				break;
+			case 2:
+				cam = _players[0].transform.GetChild(2).GetComponent<Camera>();
+				cam.rect = new Rect(0, 0.5f, 1, 0.5f);
+				cam = _players[1].transform.GetChild(2).GetComponent<Camera>();
+				cam.rect = new Rect(0, 0, 1, 0.5f);
+				break;
+			case 3:
+				cam = _players[0].transform.GetChild(2).GetComponent<Camera>();
+				cam.rect = new Rect(0, 0.5f, 0.5f, 0.5f);
+				cam = _players[1].transform.GetChild(2).GetComponent<Camera>();
+				cam.rect = new Rect(0.5f, 0.5f, 0.5f, 0.5f);
+				cam = _players[2].transform.GetChild(2).GetComponent<Camera>();
+				cam.rect = new Rect(0.25f, 0, 0.5f, 0.5f);
+				break;
+			case 4:
+				cam = _players[0].transform.GetChild(2).GetComponent<Camera>();
+				cam.rect = new Rect(0, 0.5f, 0.5f, 0.5f);
+				cam = _players[1].transform.GetChild(2).GetComponent<Camera>();
+				cam.rect = new Rect(0.5f, 0.5f, 0.5f, 0.5f);
+				cam = _players[2].transform.GetChild(2).GetComponent<Camera>();
+				cam.rect = new Rect(0, 0, 0.5f, 0.5f);
+				cam = _players[3].transform.GetChild(2).GetComponent<Camera>();
+				cam.rect = new Rect(0.5f, 0, 0.5f, 0.5f);
+				break;
+		}
+	}
+
+	#endregion
 }

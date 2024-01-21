@@ -352,6 +352,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 115917908}
+        m_TargetAssemblyTypeName: MultiplayerManager, Assembly-CSharp
+        m_MethodName: setGameOn
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &99748369
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -419,6 +431,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a09e425c6b16fe4da2fc68fe9dcb99a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _multi_SO: {fileID: 11400000, guid: dcb32af5277056644aebf7f81287cd9d, type: 2}
 --- !u!4 &115917909
 Transform:
   m_ObjectHideFlags: 0
@@ -1729,7 +1742,7 @@ MonoBehaviour:
   m_ScriptCRCCheck: 1
   m_MaxDelay: 0.01
   m_LogLevel: 2
-  m_PlayerPrefab: {fileID: 8736441633645956405, guid: bd949e74437ca3045bf2c9781cdacbc3, type: 3}
+  m_PlayerPrefab: {fileID: 0}
   m_AutoCreatePlayer: 1
   m_PlayerSpawnMethod: 0
   m_OfflineScene: TitleScreen
