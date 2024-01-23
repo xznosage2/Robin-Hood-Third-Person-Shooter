@@ -24,4 +24,9 @@ public class TitleScreen : MonoBehaviour
     {
         SceneManager.LoadScene("TitleScreen");
     }
+
+    public void StartGame()
+    {
+        SceneManager.LoadScene("MultiplayerTest");
+    }
 }

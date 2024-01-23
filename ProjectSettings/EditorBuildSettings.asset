@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Waiting For Players.unity
     guid: 97bac85590d07274c88dad7a8d46636b
+  - enabled: 1
+    path: Assets/Scenes/MultiplayerTest.unity
+    guid: a32ebdb07b1084a42abc3f4fb7acf792
   m_configObjects: {}
