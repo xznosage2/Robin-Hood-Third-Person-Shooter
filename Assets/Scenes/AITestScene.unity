@@ -206,6 +206,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 23.43, y: 0, z: 0}
+--- !u!4 &854837533 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5064767717207227873, guid: ab4817baf8c831243a55e663930c05f4, type: 3}
+  m_PrefabInstance: {fileID: 2103975049}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &860274766
 GameObject:
   m_ObjectHideFlags: 0
@@ -218,9 +223,9 @@ GameObject:
   - component: {fileID: 860274769}
   - component: {fileID: 860274768}
   - component: {fileID: 860274767}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -296,7 +301,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 860274766}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.87, y: 1.25, z: 6.06}
+  m_LocalPosition: {x: -3.85, y: 1.25, z: 0.12}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -574,6 +579,38 @@ PrefabInstance:
     - target: {fileID: 6590736194392963325, guid: ab4817baf8c831243a55e663930c05f4, type: 3}
       propertyPath: m_Name
       value: Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 7000499305227457211, guid: ab4817baf8c831243a55e663930c05f4, type: 3}
+      propertyPath: agent
+      value: 
+      objectReference: {fileID: 2103975051}
+    - target: {fileID: 7000499305227457211, guid: ab4817baf8c831243a55e663930c05f4, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 860274770}
+    - target: {fileID: 7000499305227457211, guid: ab4817baf8c831243a55e663930c05f4, type: 3}
+      propertyPath: AttackPoint
+      value: 
+      objectReference: {fileID: 854837533}
+    - target: {fileID: 7000499305227457211, guid: ab4817baf8c831243a55e663930c05f4, type: 3}
+      propertyPath: attackPoint
+      value: 
+      objectReference: {fileID: 854837533}
+    - target: {fileID: 7000499305227457211, guid: ab4817baf8c831243a55e663930c05f4, type: 3}
+      propertyPath: attackRange
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7000499305227457211, guid: ab4817baf8c831243a55e663930c05f4, type: 3}
+      propertyPath: attackSphere
+      value: 
+      objectReference: {fileID: 3340794626364595098, guid: 0dfb451fa86d2594c8e28bc84a3a3905, type: 3}
+    - target: {fileID: 7000499305227457211, guid: ab4817baf8c831243a55e663930c05f4, type: 3}
+      propertyPath: timeBetweenAttacks
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7000499305227457211, guid: ab4817baf8c831243a55e663930c05f4, type: 3}
+      propertyPath: playerInAttackRange
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ab4817baf8c831243a55e663930c05f4, type: 3}

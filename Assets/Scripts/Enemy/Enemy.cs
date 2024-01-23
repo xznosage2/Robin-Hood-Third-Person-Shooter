@@ -8,6 +8,8 @@ public class Enemy : MonoBehaviour
     public NavMeshAgent agent;
 
     public Transform player;
+    [SerializeField] Transform attackPoint;
+    [SerializeField] GameObject attackSphere;
 
     public LayerMask whatIsGround, whatIsPlayer;
 
@@ -46,14 +48,14 @@ public class Enemy : MonoBehaviour
     }
     private void AttackPlayer()
     {
-        //makes enemies stop moving when attacked
-        //agent.SetDestination(transform.position);
+        agent.SetDestination(transform.position);
 
         transform.LookAt(player);
 
         if(!alreadyAttacked)
         {
             //attack code
+            Instantiate(attackSphere, attackPoint);
 
             alreadyAttacked = true;
             Invoke(nameof(resetAttack), timeBetweenAttacks);
