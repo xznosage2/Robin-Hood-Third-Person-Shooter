@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Multiplayer_SO
   m_EditorClassIdentifier: 
   playerCount: 2
-  canStartGame: 1
+  canStartGame: 0
   playerPrefab: {fileID: 7767672356103584995, guid: 6395512f1591aa64a91d9432ab00d397, type: 3}

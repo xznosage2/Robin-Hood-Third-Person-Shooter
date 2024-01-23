@@ -1,9 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditorInternal;
 using UnityEngine;
 
 public class MultiplayerManager: MonoBehaviour
 {
+	[SerializeField] Canvas canvas;
+
     public static MultiplayerManager multiplayerManager {  get; private set; }
 	private int _playerCount = 1;
 
@@ -42,6 +45,8 @@ public class MultiplayerManager: MonoBehaviour
 		}
 
 		setupPlayerCam();
+
+		canvas = GetComponent<Canvas>();
 	}
 
 	private void Update()
@@ -84,19 +89,27 @@ public class MultiplayerManager: MonoBehaviour
 
 	private void setupPlayerCam()
 	{
+		if (canvas == null)
+		{
+			return;
+		}
+
 		Camera cam;
 		switch (_playerCount)
 		{
 			case 1:
 				cam = _players[0].transform.GetChild(2).GetComponent<Camera>();
 				cam.rect = new Rect(0, 0, 1, 1);
+				canvas.worldCamera = cam;
 				break;
 			case 2:
 				cam = _players[0].transform.GetChild(2).GetComponent<Camera>();
 				cam.rect = new Rect(0, 0.5f, 1, 0.5f);
-				cam = _players[1].transform.GetChild(2).GetComponent<Camera>();
+                canvas.worldCamera = cam;
+                cam = _players[1].transform.GetChild(2).GetComponent<Camera>();
 				cam.rect = new Rect(0, 0, 1, 0.5f);
-				break;
+                canvas.worldCamera = cam;
+                break;
 			case 3:
 				cam = _players[0].transform.GetChild(2).GetComponent<Camera>();
 				cam.rect = new Rect(0, 0.5f, 0.5f, 0.5f);
@@ -104,7 +117,8 @@ public class MultiplayerManager: MonoBehaviour
 				cam.rect = new Rect(0.5f, 0.5f, 0.5f, 0.5f);
 				cam = _players[2].transform.GetChild(2).GetComponent<Camera>();
 				cam.rect = new Rect(0.25f, 0, 0.5f, 0.5f);
-				break;
+                canvas.worldCamera = cam;
+                break;
 			case 4:
 				cam = _players[0].transform.GetChild(2).GetComponent<Camera>();
 				cam.rect = new Rect(0, 0.5f, 0.5f, 0.5f);
@@ -114,7 +128,8 @@ public class MultiplayerManager: MonoBehaviour
 				cam.rect = new Rect(0, 0, 0.5f, 0.5f);
 				cam = _players[3].transform.GetChild(2).GetComponent<Camera>();
 				cam.rect = new Rect(0.5f, 0, 0.5f, 0.5f);
-				break;
+                canvas.worldCamera = cam;
+                break;
 		}
 	}
 
