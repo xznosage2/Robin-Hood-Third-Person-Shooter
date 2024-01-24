@@ -415,6 +415,15 @@ MonoBehaviour:
   canvas: {fileID: 491115244}
   canvasObj: {fileID: 8211148189355230100, guid: db4b2181db695cc4fb577a9b99a069e4, type: 3}
   _multi_SO: {fileID: 11400000, guid: dcb32af5277056644aebf7f81287cd9d, type: 2}
+  _layersMasks:
+  - serializedVersion: 2
+    m_Bits: 1048703
+  - serializedVersion: 2
+    m_Bits: 2097279
+  - serializedVersion: 2
+    m_Bits: 4194431
+  - serializedVersion: 2
+    m_Bits: 8388735
 --- !u!4 &1257109534
 Transform:
   m_ObjectHideFlags: 0

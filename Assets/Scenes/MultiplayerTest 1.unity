@@ -807,6 +807,18 @@ MonoBehaviour:
   canvas: {fileID: 0}
   canvasObj: {fileID: 0}
   _multi_SO: {fileID: 11400000, guid: dcb32af5277056644aebf7f81287cd9d, type: 2}
+  _camOneMask:
+    serializedVersion: 2
+    m_Bits: 0
+  _camTwoMask:
+    serializedVersion: 2
+    m_Bits: 0
+  _camThreeMask:
+    serializedVersion: 2
+    m_Bits: 0
+  _camFourMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!4 &1257109534
 Transform:
   m_ObjectHideFlags: 0
@@ -971,7 +983,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7767672355138766626, guid: 6395512f1591aa64a91d9432ab00d397, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.00048591758
+      value: -0.00048591764
       objectReference: {fileID: 0}
     - target: {fileID: 7767672355138766629, guid: 6395512f1591aa64a91d9432ab00d397, type: 3}
       propertyPath: m_CullingMask.m_Bits
@@ -1126,11 +1138,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7767672355138766626, guid: 6395512f1591aa64a91d9432ab00d397, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.00048591764
+      value: -0.00048591758
       objectReference: {fileID: 0}
     - target: {fileID: 7767672355138766629, guid: 6395512f1591aa64a91d9432ab00d397, type: 3}
       propertyPath: m_CullingMask.m_Bits
-      value: 1048703
+      value: 13631615
       objectReference: {fileID: 0}
     - target: {fileID: 7767672355138766629, guid: 6395512f1591aa64a91d9432ab00d397, type: 3}
       propertyPath: m_NormalizedViewPortRect.height
@@ -1146,15 +1158,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7767672355446328311, guid: 6395512f1591aa64a91d9432ab00d397, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.032257233
+      value: 0.03225725
       objectReference: {fileID: 0}
     - target: {fileID: 7767672355446328311, guid: 6395512f1591aa64a91d9432ab00d397, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.000000017197427
+      value: -0.000000017197427
       objectReference: {fileID: 0}
     - target: {fileID: 7767672355446328311, guid: 6395512f1591aa64a91d9432ab00d397, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -5.5503024e-10
+      value: 5.550306e-10
       objectReference: {fileID: 0}
     - target: {fileID: 7767672356103584992, guid: 6395512f1591aa64a91d9432ab00d397, type: 3}
       propertyPath: m_RootOrder

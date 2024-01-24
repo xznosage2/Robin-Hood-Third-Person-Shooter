@@ -15,6 +15,8 @@ public class MultiplayerManager: MonoBehaviour
 
 	private List<GameObject> _players = new List<GameObject>();
 
+	[SerializeField] private LayerMask[] _layersMasks;
+
 	private void Awake()
 	{
 		// If there is an multiplayerManager, and it's not me, delete myself.
@@ -37,7 +39,7 @@ public class MultiplayerManager: MonoBehaviour
 		for (int i = 0; i < _playerCount; i++)
 		{
 			_players.Add(Instantiate(_multi_SO.playerPrefab));
-			_players[i].transform.position = new Vector3(i * 2, 0, 0);
+			_players[i].transform.position = new Vector3(i * 3, 1, 0);
 			Debug.Log("Player " + i + " has been added");
 			if (i != 0)
 			{
@@ -88,6 +90,7 @@ public class MultiplayerManager: MonoBehaviour
 
 	#region Camera Setup
 
+	// bigger cam setup
 	private void setupPlayerCam()
 	{
 		if (canvas == null)
@@ -95,74 +98,152 @@ public class MultiplayerManager: MonoBehaviour
 			return;
 		}
 
-		Canvas canJr1;
-		Canvas canJr2;
-		Canvas canJr3;
-		Canvas canJr4;
-		Camera cam;
-
-		// I hate my self
 		switch (_playerCount)
 		{
 			case 1:
-				cam = _players[0].transform.GetChild(2).GetComponent<Camera>();
-				cam.rect = new Rect(0, 0, 1, 1);
-				canJr1 = Instantiate(canvasObj).GetComponent<Canvas>();
-				canJr1.worldCamera = cam;
+				setupPlayerOneCam();
 				break;
 			case 2:
-				cam = _players[0].transform.GetChild(2).GetComponent<Camera>();
-				cam.rect = new Rect(0, 0.5f, 1, 0.5f);
-				canJr1 = Instantiate(canvasObj).GetComponent<Canvas>();
-				canJr1.worldCamera = cam;
-				canJr1.planeDistance = 0.101f;
-				//canvas.worldCamera = cam;
-                cam = _players[1].transform.GetChild(2).GetComponent<Camera>();
-				cam.rect = new Rect(0, 0, 1, 0.5f);
-				canJr2 = Instantiate(canvasObj).GetComponent<Canvas>();
-				canJr2.worldCamera = cam;
-				canJr1.planeDistance = 0.101f;
+				setupPlayerOneCam();
+				setupPlayerTwoCam();
 				break;
 			case 3:
-				cam = _players[0].transform.GetChild(2).GetComponent<Camera>();
-				cam.rect = new Rect(0, 0.5f, 0.5f, 0.5f);
-				canJr1 = Instantiate(canvasObj).GetComponent<Canvas>();
-				canJr1.worldCamera = cam;
-				canJr1.planeDistance = 0.101f;
-				cam = _players[1].transform.GetChild(2).GetComponent<Camera>();
-				cam.rect = new Rect(0.5f, 0.5f, 0.5f, 0.5f);
-				canJr2 = Instantiate(canvasObj).GetComponent<Canvas>();
-				canJr2.worldCamera = cam;
-				canJr2.planeDistance = 0.101f;
-				cam = _players[2].transform.GetChild(2).GetComponent<Camera>();
-				cam.rect = new Rect(0.25f, 0, 0.5f, 0.5f);
-				canJr3 = Instantiate(canvasObj).GetComponent<Canvas>();
-				canJr3.worldCamera = cam;
-				canJr3.planeDistance = 0.101f;
+				setupPlayerOneCam();
+				setupPlayerTwoCam();
+				setupPlayerThreeCam();
 				break;
 			case 4:
-				cam = _players[0].transform.GetChild(2).GetComponent<Camera>();
-				cam.rect = new Rect(0, 0.5f, 0.5f, 0.5f);
-				canJr1 = Instantiate(canvasObj).GetComponent<Canvas>();
-				canJr1.worldCamera = cam;
-				canJr1.planeDistance = 0.101f;
-				cam = _players[1].transform.GetChild(2).GetComponent<Camera>();
-				cam.rect = new Rect(0.5f, 0.5f, 0.5f, 0.5f);
-				canJr2 = Instantiate(canvasObj).GetComponent<Canvas>();
-				canJr2.worldCamera = cam;
-				canJr2.planeDistance = 0.101f;
-				cam = _players[2].transform.GetChild(2).GetComponent<Camera>();
-				cam.rect = new Rect(0, 0, 0.5f, 0.5f);
-				canJr3 = Instantiate(canvasObj).GetComponent<Canvas>();
-				canJr3.worldCamera = cam;
-				canJr3.planeDistance = 0.101f;
-				cam = _players[3].transform.GetChild(2).GetComponent<Camera>();
-				cam.rect = new Rect(0.5f, 0, 0.5f, 0.5f);
-				canJr4 = Instantiate(canvasObj).GetComponent<Canvas>();
-				canJr4.worldCamera = cam;
-				canJr4.planeDistance = 0.101f;
+				setupPlayerOneCam();
+				setupPlayerTwoCam();
+				setupPlayerThreeCam();
+				setupPlayerFourCam();
+				
                 break;
 		}
+	}
+
+	private void setupPlayerOneCam()
+	{
+		Canvas canvas;
+		Camera cam;
+		Rect rect = new Rect();
+
+		switch (_multi_SO.playerCount)
+		{
+			case 1: rect = new Rect(0, 0, 1, 1); break;
+			case 2: rect = new Rect(0, 0.5f, 1, 0.5f); break;
+			case 3: rect = new Rect(0, 0.5f, 0.5f, 0.5f); break;
+			case 4: rect = new Rect(0, 0.5f, 0.5f, 0.5f); break;
+		}
+
+		cam = _players[0].transform.GetChild(2).GetComponent<Camera>();
+		cam.rect = rect;
+		cam.cullingMask = _layersMasks[0];
+		GameObject canv = Instantiate(canvasObj);
+		canvas = canv.GetComponent<Canvas>();
+		canvas.worldCamera = cam;
+		canvas.planeDistance = 0.101f;
+		// layer 20 is cam1
+		_players[0].transform.GetChild(0).gameObject.layer = 20;
+
+		setCanvasActive(1, canv);
+	}
+
+	private void setupPlayerTwoCam()
+	{
+		Canvas canvas;
+		Camera cam;
+		Rect rect = new Rect();
+
+		switch (_multi_SO.playerCount)
+		{
+			case 2: rect = new Rect(0, 0, 1, 0.5f); break;
+			case 3: rect = new Rect(0.5f, 0.5f, 0.5f, 0.5f); break;
+			case 4: rect = new Rect(0.5f, 0.5f, 0.5f, 0.5f); break;
+		}
+
+		cam = _players[1].transform.GetChild(2).GetComponent<Camera>();
+		cam.rect = rect;
+		cam.cullingMask = _layersMasks[1];
+		GameObject canv = Instantiate(canvasObj);
+		canvas = canv.GetComponent<Canvas>();
+		canvas.worldCamera = cam;
+		canvas.planeDistance = 0.101f;
+		// layer 21 is cam2
+		_players[1].transform.GetChild(1).gameObject.layer = 21;
+
+		setCanvasActive(2, canv);
+
+	}
+
+	private void setupPlayerThreeCam()
+	{
+		Canvas canvas;
+		Camera cam;
+		Rect rect = new Rect();
+
+		switch (_multi_SO.playerCount)
+		{
+			case 3: rect = new Rect(0.25f, 0, 0.5f, 0.5f); break;
+			case 4: rect = new Rect(0, 0, 0.5f, 0.5f); break;
+		}
+
+		cam = _players[2].transform.GetChild(2).GetComponent<Camera>();
+		cam.rect = rect;
+		cam.cullingMask = _layersMasks[2];
+		GameObject canv = Instantiate(canvasObj);
+		canvas = canv.GetComponent<Canvas>();
+		canvas.worldCamera = cam;
+		canvas.planeDistance = 0.101f;
+		// layer 22 is cam3
+		_players[2].transform.GetChild(1).gameObject.layer = 22;
+
+		setCanvasActive(3, canv);
+	}
+
+	private void setupPlayerFourCam()
+	{
+		Canvas canvas;
+		Camera cam;
+		Rect rect = new Rect(0.5f, 0, 0.5f, 0.5f);
+
+		cam = _players[3].transform.GetChild(2).GetComponent<Camera>();
+		cam.rect = rect;
+		cam.cullingMask = _layersMasks[3];
+		GameObject canv = Instantiate(canvasObj);
+		canvas = canv.GetComponent<Canvas>();
+		canvas.worldCamera = cam;
+		canvas.planeDistance = 0.101f;
+		// layer 23 is cam4
+		_players[3].transform.GetChild(1).gameObject.layer = 23;
+
+		setCanvasActive(4, canv);
+	}
+
+	private void setCanvasActive(int playerNum, GameObject canvas)
+	{
+		GameObject uiParent;
+		switch (_multi_SO.playerCount)
+		{
+			case 1: uiParent = canvas.transform.GetChild(0).gameObject; uiParent.SetActive(true); break;
+			case 2: uiParent = canvas.transform.GetChild(1).gameObject; uiParent.SetActive(true); break;
+			case 3: uiParent = canvas.transform.GetChild(2).gameObject; uiParent.SetActive(true); break;
+			case 4: uiParent = canvas.transform.GetChild(3).gameObject; uiParent.SetActive(true); break;
+			default: uiParent = null; break;
+		}
+
+		// Future use case - Player will get their ui test to be bigger
+		//switch (playerNum)
+		//{
+		//	case 1: uiParent.transform.GetChild(0).gameObject.SetActive(true); break;
+		//	case 2: uiParent.transform.GetChild(1).gameObject.SetActive(true); break;
+		//	case 3: uiParent.transform.GetChild(2).gameObject.SetActive(true); break;
+		//	case 4: uiParent.transform.GetChild(3).gameObject.SetActive(true); break;
+		//}
+
+		canvas.transform.GetChild(4).gameObject.SetActive(true);
+		canvas.transform.GetChild(5).gameObject.SetActive(true);
+		canvas.transform.GetChild(6).gameObject.SetActive(true);
 	}
 
 	#endregion
