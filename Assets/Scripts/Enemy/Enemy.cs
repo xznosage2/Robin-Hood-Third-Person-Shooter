@@ -10,6 +10,9 @@ public class Enemy : MonoBehaviour
     public Transform player;
     [SerializeField] Transform attackPoint;
     [SerializeField] GameObject attackSphere;
+    private charaterManager manager;
+
+    int wave = 1;
 
     public LayerMask whatIsGround, whatIsPlayer;
 
@@ -25,6 +28,8 @@ public class Enemy : MonoBehaviour
 	{
         player = GameObject.Find("Player").transform;
         agent = GetComponent<NavMeshAgent>();
+        manager = GetComponent<charaterManager>();
+        manager.SetHealth(wave);
 	}
 
 	// Start is called before the first frame update
@@ -42,10 +47,11 @@ public class Enemy : MonoBehaviour
         if (playerInAttackRange) AttackPlayer();
     }
 
-    private void ChasePlayer()
+	private void ChasePlayer()
     {
         agent.SetDestination(player.position);
     }
+
     private void AttackPlayer()
     {
         agent.SetDestination(transform.position);
@@ -65,11 +71,6 @@ public class Enemy : MonoBehaviour
     private void resetAttack()
     {
         alreadyAttacked = false;
-    }
-
-    private void TakeDamage()
-    {
-
     }
 
     private void DestroyEnemy()

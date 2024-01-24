@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class Damage : MonoBehaviour
+public class Damage : MonoBehaviour, IDamagable
 {
 
     [Header("Damage Amount")]
@@ -12,8 +12,12 @@ public class Damage : MonoBehaviour
     [Header("Is Constant")]
     [SerializeField] bool oneTime = true;
 
+	public void TakeDamage(float damage)
+	{
+		
+	}
 
-    private void OnTriggerEnter(Collider other)
+	private void OnTriggerEnter(Collider other)
     {
         if (oneTime && other.gameObject.TryGetComponent<IDamagable>(out IDamagable damagable))
         {

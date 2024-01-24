@@ -139,6 +139,8 @@ GameObject:
   - component: {fileID: 9130106862423493613}
   - component: {fileID: 2914633315186065334}
   - component: {fileID: 7000499305227457211}
+  - component: {fileID: 217301897869861064}
+  - component: {fileID: 206369602725897860}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -237,10 +239,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14c9e05a5576af74887fcbdc653a3dc8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  agent: {fileID: 0}
+  agent: {fileID: 206369602725897860}
   player: {fileID: 0}
-  attackPoint: {fileID: 0}
-  attackSphere: {fileID: 0}
+  attackPoint: {fileID: 5064767717207227873}
+  attackSphere: {fileID: 3340794626364595098, guid: 0dfb451fa86d2594c8e28bc84a3a3905, type: 3}
   whatIsGround:
     serializedVersion: 2
     m_Bits: 8
@@ -250,3 +252,39 @@ MonoBehaviour:
   timeBetweenAttacks: 2
   attackRange: 1.2
   playerInAttackRange: 0
+--- !u!114 &217301897869861064
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6590736194392963325}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42d05c2cbba35aa488f3c4a21a21bbfe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scoreUI: {fileID: 0}
+  healthUI: {fileID: 0}
+--- !u!195 &206369602725897860
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6590736194392963325}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 1
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
