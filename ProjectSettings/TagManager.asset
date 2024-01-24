@@ -3,7 +3,9 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Bow
+  - Arrow
   layers:
   - Default
   - TransparentFX
@@ -25,10 +27,10 @@ TagManager:
   - 
   - 
   - 
-  - 
-  - 
-  - 
-  - 
+  - Cam1
+  - Cam2
+  - Cam3
+  - Cam4
   - 
   - 
   - 

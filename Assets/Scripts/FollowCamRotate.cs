@@ -11,10 +11,12 @@ public class FollowCamRotate : MonoBehaviour
     [Header("Camera & Character Syncing")]
     public float lookDistance = 5;
     public float lookSpeed = 5;
+
+    private Camera cam;
     // Start is called before the first frame update
     void Start()
     {
-        
+        cam = transform.GetChild(2).GetComponent<Camera>();
     }
 
     // Update is called once per frame
@@ -31,9 +33,9 @@ public class FollowCamRotate : MonoBehaviour
     }
     void RotateToCamView()
     {
-        Vector3 camCenterPos = Camera.main.transform.position;
+        Vector3 camCenterPos = cam.transform.position;
 
-        Vector3 lookPoint = camCenterPos + (Camera.main.transform.forward * lookDistance);
+        Vector3 lookPoint = camCenterPos + (cam.transform.forward * lookDistance);
         Vector3 direction = lookPoint - transform.position;
 
         Quaternion lookRotation = Quaternion.LookRotation(-direction);

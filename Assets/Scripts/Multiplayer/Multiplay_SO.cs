@@ -10,4 +10,9 @@ public class Multiplay_SO : ScriptableObject
 	public bool canStartGame = false;
 
 	public GameObject playerPrefab;
+
+	private void OnDestroy()
+	{
+		canStartGame = false;
+	}
 }

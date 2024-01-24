@@ -6,6 +6,7 @@ using UnityEngine;
 public class MultiplayerManager: MonoBehaviour
 {
 	[SerializeField] Canvas canvas;
+	[SerializeField] GameObject canvasObj;
 
     public static MultiplayerManager multiplayerManager {  get; private set; }
 	private int _playerCount = 1;
@@ -94,41 +95,72 @@ public class MultiplayerManager: MonoBehaviour
 			return;
 		}
 
+		Canvas canJr1;
+		Canvas canJr2;
+		Canvas canJr3;
+		Canvas canJr4;
 		Camera cam;
+
+		// I hate my self
 		switch (_playerCount)
 		{
 			case 1:
 				cam = _players[0].transform.GetChild(2).GetComponent<Camera>();
 				cam.rect = new Rect(0, 0, 1, 1);
-				canvas.worldCamera = cam;
+				canJr1 = Instantiate(canvasObj).GetComponent<Canvas>();
+				canJr1.worldCamera = cam;
 				break;
 			case 2:
 				cam = _players[0].transform.GetChild(2).GetComponent<Camera>();
 				cam.rect = new Rect(0, 0.5f, 1, 0.5f);
-                canvas.worldCamera = cam;
+				canJr1 = Instantiate(canvasObj).GetComponent<Canvas>();
+				canJr1.worldCamera = cam;
+				canJr1.planeDistance = 0.101f;
+				//canvas.worldCamera = cam;
                 cam = _players[1].transform.GetChild(2).GetComponent<Camera>();
 				cam.rect = new Rect(0, 0, 1, 0.5f);
-                canvas.worldCamera = cam;
-                break;
+				canJr2 = Instantiate(canvasObj).GetComponent<Canvas>();
+				canJr2.worldCamera = cam;
+				canJr1.planeDistance = 0.101f;
+				break;
 			case 3:
 				cam = _players[0].transform.GetChild(2).GetComponent<Camera>();
 				cam.rect = new Rect(0, 0.5f, 0.5f, 0.5f);
+				canJr1 = Instantiate(canvasObj).GetComponent<Canvas>();
+				canJr1.worldCamera = cam;
+				canJr1.planeDistance = 0.101f;
 				cam = _players[1].transform.GetChild(2).GetComponent<Camera>();
 				cam.rect = new Rect(0.5f, 0.5f, 0.5f, 0.5f);
+				canJr2 = Instantiate(canvasObj).GetComponent<Canvas>();
+				canJr2.worldCamera = cam;
+				canJr2.planeDistance = 0.101f;
 				cam = _players[2].transform.GetChild(2).GetComponent<Camera>();
 				cam.rect = new Rect(0.25f, 0, 0.5f, 0.5f);
-                canvas.worldCamera = cam;
-                break;
+				canJr3 = Instantiate(canvasObj).GetComponent<Canvas>();
+				canJr3.worldCamera = cam;
+				canJr3.planeDistance = 0.101f;
+				break;
 			case 4:
 				cam = _players[0].transform.GetChild(2).GetComponent<Camera>();
 				cam.rect = new Rect(0, 0.5f, 0.5f, 0.5f);
+				canJr1 = Instantiate(canvasObj).GetComponent<Canvas>();
+				canJr1.worldCamera = cam;
+				canJr1.planeDistance = 0.101f;
 				cam = _players[1].transform.GetChild(2).GetComponent<Camera>();
 				cam.rect = new Rect(0.5f, 0.5f, 0.5f, 0.5f);
+				canJr2 = Instantiate(canvasObj).GetComponent<Canvas>();
+				canJr2.worldCamera = cam;
+				canJr2.planeDistance = 0.101f;
 				cam = _players[2].transform.GetChild(2).GetComponent<Camera>();
 				cam.rect = new Rect(0, 0, 0.5f, 0.5f);
+				canJr3 = Instantiate(canvasObj).GetComponent<Canvas>();
+				canJr3.worldCamera = cam;
+				canJr3.planeDistance = 0.101f;
 				cam = _players[3].transform.GetChild(2).GetComponent<Camera>();
 				cam.rect = new Rect(0.5f, 0, 0.5f, 0.5f);
-                canvas.worldCamera = cam;
+				canJr4 = Instantiate(canvasObj).GetComponent<Canvas>();
+				canJr4.worldCamera = cam;
+				canJr4.planeDistance = 0.101f;
                 break;
 		}
 	}

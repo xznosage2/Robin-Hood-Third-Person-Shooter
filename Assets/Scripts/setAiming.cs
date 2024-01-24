@@ -20,10 +20,14 @@ public class setAiming : MonoBehaviour
     public FollowCamRotate rotate;
 
     Animator animator;
+
+    private Camera cam;
+
     // Start is called before the first frame update
     void Start()
     {
         animator = GetComponent<Animator>();
+        cam = transform.parent.GetChild(2).GetComponent<Camera>();
     }
 
     // Update is called once per frame
@@ -74,8 +78,8 @@ public class setAiming : MonoBehaviour
     
     void Aim()
     {
-        Vector3 camPosition = Camera.main.transform.position;
-        Vector3 dir = Camera.main.transform.forward;
+        Vector3 camPosition = cam.transform.position;
+        Vector3 dir = cam.transform.forward;
 
         ray = new Ray(camPosition, dir);
         if (Physics.Raycast(ray, out hit, 500f, aimLayers))
