@@ -8,6 +8,7 @@ public class Shoot : MonoBehaviour
     public GameObject arrowPrefab;
     public Transform arrowSpawn;
     public float shootForce = 20f;
+
     
 
     // Update is called once per frame

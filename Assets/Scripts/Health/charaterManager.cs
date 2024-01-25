@@ -45,6 +45,11 @@ public class charaterManager : MonoBehaviour, IDamagable
             DestroyGameObject();
         }
 	}
+
+    public void updateScore(int score)
+    {
+        this.score += score;
+    }
     
     public void SetHealth(int wave)
     {

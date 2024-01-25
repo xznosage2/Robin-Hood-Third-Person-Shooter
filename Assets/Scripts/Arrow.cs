@@ -10,8 +10,13 @@ public class Arrow : MonoBehaviour
     bool disableRotation;
     public float destroyTime = 10f;
     AudioSource arrowAudio;
+    GameObject playerCharacter;
 
     // Start is called before the first frame update
+    private void Awake()
+    {
+        
+    }
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -43,4 +48,5 @@ public class Arrow : MonoBehaviour
 
         }
     }
+
 }
