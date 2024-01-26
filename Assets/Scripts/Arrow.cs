@@ -10,12 +10,12 @@ public class Arrow : MonoBehaviour
     bool disableRotation;
     public float destroyTime = 10f;
     AudioSource arrowAudio;
-    GameObject playerCharacter;
+    int playerIndex;
 
     // Start is called before the first frame update
     private void Awake()
     {
-        
+
     }
     void Start()
     {
@@ -27,26 +27,38 @@ public class Arrow : MonoBehaviour
     }
     void Update()
     {
-        if(!disableRotation)
+        if (!disableRotation)
             transform.rotation = Quaternion.LookRotation(rb.velocity);
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.tag != "Player")
+        if (collision.gameObject.tag != "Player")
         {
             arrowAudio.Play();
             disableRotation = true;
             rb.isKinematic = true;
             bx.isTrigger = true;
-        } 
+        }
 
-        if(collision.collider.tag == "Target"){
-            
+        if (collision.collider.tag == "Target")
+        {
+
             GameObject.Find("InGameUI/TargetsLeft").GetComponent<TargetsLeftText>().targetsLeft--;
             collision.collider.gameObject.SetActive(false);
 
         }
     }
+
+    public void setplayerIndex(int player)
+    {
+        playerIndex = player;
+    }
+    public int getplayerIndex()
+    {
+        return playerIndex;
+    }
+
+
 
 }

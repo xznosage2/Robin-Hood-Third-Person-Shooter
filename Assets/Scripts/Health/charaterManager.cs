@@ -16,6 +16,8 @@ public class charaterManager : MonoBehaviour, IDamagable
 
     [SerializeField] public int score = 0;
 
+    private int playerIndex = 1;
+
 	public void Awake()
 	{
 		if (healthUI != null)
@@ -59,6 +61,11 @@ public class charaterManager : MonoBehaviour, IDamagable
     public void DestroyGameObject()
     {
         Destroy(gameObject);
+    }
+
+    public int GetPlayerIndex()
+    {
+        return playerIndex;
     }
 }
 
