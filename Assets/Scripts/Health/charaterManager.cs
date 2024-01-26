@@ -55,6 +55,7 @@ public class charaterManager : MonoBehaviour, IDamagable
     
     public void SetHealth(int wave)
     {
+        Debug.Log("Increased Health");
         health = wave * 2;
     }
 
