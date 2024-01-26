@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class twoDAnimSelect : MonoBehaviour
 {
@@ -22,9 +23,17 @@ public class twoDAnimSelect : MonoBehaviour
     public float deceleration = 2.0f;
     public float maxWalkVelocity = 0.5f;
     public float maxRunVelocity = 2.0f;
-    // Start is called before the first frame update
-    void Start()
+
+    private PlayerInput _input;
+
+	private void Awake()
+	{
+	}
+
+	// Start is called before the first frame update
+	void Start()
     {
+		_input = transform.parent.GetComponent<PlayerInput>();
         animator = GetComponent<Animator>();
     }
 
@@ -190,20 +199,29 @@ public class twoDAnimSelect : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        bool forwardPressed = Input.GetKey(forward);
-        bool backPressed = Input.GetKey(back);
-        bool leftPressed = Input.GetKey(left);
-        bool rightPressed = Input.GetKey(right);
-        bool runPressed = Input.GetKey(run);
+        // input 
+        bool forwardPressed = _input.actions["WASD"].ReadValue<Vector2>().x > 0;
+        bool backPressed = _input.actions["WASD"].ReadValue<Vector2>().x < 0;
+        bool leftPressed = _input.actions["WASD"].ReadValue<Vector2>().y > 0;
+        bool rightPressed = _input.actions["WASD"].ReadValue<Vector2>().y < 0;
+        bool runPressed = _input.actions["Sprint"].ReadValue<float>() > 0;
+        //bool forwardPressed = Input.GetKey(forward);
+        //bool backPressed = Input.GetKey(back);
+        //bool leftPressed = Input.GetKey(left);
+        //bool rightPressed = Input.GetKey(right);
+        //bool runPressed = Input.GetKey(run);
 
         //set current max velocity
         float currMaxVelocity = runPressed ? maxRunVelocity : maxWalkVelocity;
+        //float currMaxVelocity = 0;
 
-        //handles changes in velocity
-        changeVelocity(forwardPressed, backPressed, leftPressed, rightPressed, runPressed, currMaxVelocity);
-        lockOrResetVelocity(forwardPressed, backPressed, leftPressed, rightPressed, runPressed, currMaxVelocity);
+		//handles changes in velocity
+		changeVelocity(forwardPressed, backPressed, leftPressed, rightPressed, runPressed, currMaxVelocity);
+		lockOrResetVelocity(forwardPressed, backPressed, leftPressed, rightPressed, runPressed, currMaxVelocity);
+		//changeVelocity(false, false, false, false, false, currMaxVelocity);
+		//lockOrResetVelocity(false, false, false, false, false, currMaxVelocity);
 
-        animator.SetFloat("Velocity Z", velocityZ);
+		animator.SetFloat("Velocity Z", velocityZ);
         animator.SetFloat("Velocity X", velocityX);
     }
 }

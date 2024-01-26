@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class setAiming : MonoBehaviour
 {
@@ -23,17 +24,23 @@ public class setAiming : MonoBehaviour
 
     private Camera cam;
 
-    // Start is called before the first frame update
-    void Start()
+	private PlayerInput _input;
+
+	// Start is called before the first frame update
+	void Start()
     {
         animator = GetComponent<Animator>();
         cam = transform.parent.GetChild(2).GetComponent<Camera>();
-    }
+
+		_input = transform.parent.GetComponent<PlayerInput>();
+	}
 
     // Update is called once per frame
     void Update()
     {
-        bool isAiming = Input.GetKey(aim);
+        // input
+        //bool isAiming = Input.GetKey(aim);
+        bool isAiming = false;
         if (bowScript.bowSettings.arrowCount < 1)
             isAiming = false;
 
@@ -47,12 +54,13 @@ public class setAiming : MonoBehaviour
             bowScript.EquipBow();
             if (bowScript.bowSettings.arrowCount > 0)
             {
-                animator.SetBool("pullString", Input.GetKey(fire));
-                if (Input.GetKey(fire))
-                    bowScript.PullString();
+                //animator.SetBool("pullString", Input.GetKey(fire));
+                //if (Input.GetKey(fire))
+                    //bowScript.PullString();
             }
 
-            if (Input.GetKeyUp(fire))
+            //if (Input.GetKeyUp(fire))
+            if (false)
             {
                 bowScript.ReleaseString();
                 animator.SetTrigger("fire");

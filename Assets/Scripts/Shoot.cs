@@ -19,6 +19,7 @@ public class Shoot : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // input
         if (Input.GetMouseButtonDown(0))
         {
             GameObject go = Instantiate(arrowPrefab, arrowSpawn.position, Quaternion.identity);

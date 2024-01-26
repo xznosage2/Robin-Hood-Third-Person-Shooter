@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -19,14 +20,34 @@ public class PlayerMovement : MonoBehaviour
     public LayerMask groundMask;
     bool isGrounded;
 
-    void Update()
+    private PlayerInput _inputs;
+
+    InputAction _move;
+    InputAction _sprint;
+
+    Vector2 movement = Vector2.zero;
+    bool isSprinting = false;
+
+	private void Awake()
+	{
+        _inputs = GetComponent<PlayerInput>();
+
+        _inputs.actions["Walk"].performed += setMovement;
+        _inputs.actions["Walk"].canceled += resetMovement;
+        _inputs.actions["Sprint"].performed += setSprint;
+
+	}
+
+	void Update()
     {
         float speed;
-        float horizontal = Input.GetAxisRaw("Horizontal");
-        float vertical = Input.GetAxisRaw("Vertical");
-        Vector3 direction = new Vector3(horizontal, 0f, vertical).normalized;
+        //float horizontal = InputController.getPlayerMovement(true, 1);
+        //float vertical = InputController.getPlayerMovement(false, 1);
+		Vector3 direction = new Vector3(movement.x, 0f, movement.y).normalized;
+		//Vector3 direction = new Vector3(horizontal, 0f, vertical).normalized;
 
-        if(Input.GetKey("left shift")){
+        //if(Input.GetKey("left shift")){
+        if(isSprinting){
             speed = 2*walkingSpeed;
         }else{
             speed = walkingSpeed;
@@ -50,6 +71,21 @@ public class PlayerMovement : MonoBehaviour
 
         GravityVelocity.y += gravity * Time.deltaTime;
         controller.Move(GravityVelocity * Time.deltaTime);
+    }
+
+    private void setMovement(InputAction.CallbackContext context)
+    {
+        movement = context.ReadValue<Vector2>();
+	}
+
+    private void resetMovement(InputAction.CallbackContext context) 
+    {
+        movement = Vector2.zero;
+    }
+
+    private void setSprint(InputAction.CallbackContext context)
+    {
+        isSprinting = (context.ReadValue<float>() == 1) ? true: false;
     }
 
     public void rotateToCam()

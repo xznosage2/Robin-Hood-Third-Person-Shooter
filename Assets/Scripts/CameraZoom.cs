@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
+using UnityEngine.InputSystem;
 
 public class CameraZoom : MonoBehaviour
 {
@@ -14,8 +15,14 @@ public class CameraZoom : MonoBehaviour
     public Transform LookAt;
 
     public PlayerMovement move;
-    // Start is called before the first frame update
-    void Start()
+
+	private void Awake()
+	{
+		//_input = transform.parent.GetComponent<PlayerInput>();
+	}
+
+	// Start is called before the first frame update
+	void Start()
     {
         vcam = GetComponent<CinemachineFreeLook>();
         vcam.m_CommonLens = true;
@@ -25,17 +32,18 @@ public class CameraZoom : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(aim))
-        {
-            vcam.LookAt = LookAtZoom;
-            ZoomCameraIn();
-            move.rotateToCam();
-        }
-        else
-        {
-            vcam.LookAt = LookAt;
-            ZoomCameraOut();
-        }
+        // input
+        //if (Input.GetKey(aim))
+        //{
+        //    vcam.LookAt = LookAtZoom;
+        //    ZoomCameraIn();
+        //    move.rotateToCam();
+        //}
+        //else
+        //{
+        //    vcam.LookAt = LookAt;
+        //    ZoomCameraOut();
+        //}
     }
     void ZoomCameraIn()
     {
