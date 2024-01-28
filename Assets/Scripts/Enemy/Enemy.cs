@@ -15,6 +15,8 @@ public class Enemy : MonoBehaviour
     private float speed = 0;
     private Transform lastPosition;
 
+    public GameManager gManager;
+
     int wave = 1;
 
     public LayerMask whatIsGround, whatIsPlayer;
@@ -33,6 +35,8 @@ public class Enemy : MonoBehaviour
 	private void Awake()
 	{
         player = GameObject.Find("Player").transform;
+        gManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+
         agent = GetComponent<NavMeshAgent>();
         manager = GetComponent<charaterManager>();
         anim = GetComponent<Animator>();
@@ -105,5 +109,10 @@ public class Enemy : MonoBehaviour
     public void AttackSphere()
     {
 		
+	}
+
+	public void OnDestroy()
+	{
+        gManager.EnemyDied();
 	}
 }
