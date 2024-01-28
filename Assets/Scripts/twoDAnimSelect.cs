@@ -5,16 +5,16 @@ using UnityEngine.InputSystem;
 
 public class twoDAnimSelect : MonoBehaviour
 {
-    [SerializeField]
-    KeyCode forward;
-    [SerializeField]
-    KeyCode back;
-    [SerializeField]
-    KeyCode left;
-    [SerializeField]
-    KeyCode right;
-    [SerializeField]
-    KeyCode run;
+    //[SerializeField]
+    //KeyCode forward;
+    //[SerializeField]
+    //KeyCode back;
+    //[SerializeField]
+    //KeyCode left;
+    //[SerializeField]
+    //KeyCode right;
+    //[SerializeField]
+    //KeyCode run;
 
     Animator animator;
     float velocityZ = 0.0f;
@@ -200,10 +200,10 @@ public class twoDAnimSelect : MonoBehaviour
     void Update()
     {
         // input 
-        bool forwardPressed = _input.actions["WASD"].ReadValue<Vector2>().x > 0;
-        bool backPressed = _input.actions["WASD"].ReadValue<Vector2>().x < 0;
-        bool leftPressed = _input.actions["WASD"].ReadValue<Vector2>().y > 0;
-        bool rightPressed = _input.actions["WASD"].ReadValue<Vector2>().y < 0;
+        bool forwardPressed = _input.actions["Walk"].ReadValue<Vector2>().x > 0;
+        bool backPressed = _input.actions["Walk"].ReadValue<Vector2>().x < 0;
+        bool leftPressed = _input.actions["Walk"].ReadValue<Vector2>().y > 0;
+        bool rightPressed = _input.actions["Walk"].ReadValue<Vector2>().y < 0;
         bool runPressed = _input.actions["Sprint"].ReadValue<float>() > 0;
         //bool forwardPressed = Input.GetKey(forward);
         //bool backPressed = Input.GetKey(back);

@@ -15,10 +15,15 @@ public class CameraZoom : MonoBehaviour
     public Transform LookAt;
 
     public PlayerMovement move;
+    public PlayerInput _input;
+    private bool isAiming = false;
 
 	private void Awake()
 	{
-		//_input = transform.parent.GetComponent<PlayerInput>();
+		_input = transform.parent.GetComponent<PlayerInput>();
+
+        _input.actions["Aim"].performed += setAimingTrue;
+        _input.actions["Aim"].canceled += setAimingFalse;
 	}
 
 	// Start is called before the first frame update
@@ -34,17 +39,29 @@ public class CameraZoom : MonoBehaviour
     {
         // input
         //if (Input.GetKey(aim))
-        //{
-        //    vcam.LookAt = LookAtZoom;
-        //    ZoomCameraIn();
-        //    move.rotateToCam();
-        //}
-        //else
-        //{
-        //    vcam.LookAt = LookAt;
-        //    ZoomCameraOut();
-        //}
+        if (isAiming)
+        {
+            vcam.LookAt = LookAtZoom;
+            ZoomCameraIn();
+            move.rotateToCam();
+        }
+        else
+        {
+            vcam.LookAt = LookAt;
+            ZoomCameraOut();
+        }
     }
+
+    private void setAimingTrue(InputAction.CallbackContext context)
+    {
+        isAiming = true;
+    }
+
+    private void setAimingFalse(InputAction.CallbackContext context)
+    {
+        isAiming = false;
+    }
+
     void ZoomCameraIn()
     {
         vcam.m_Lens.FieldOfView = Mathf.Lerp(vcam.m_Lens.FieldOfView, zoomFieldofView, zoomSpeed * Time.deltaTime);

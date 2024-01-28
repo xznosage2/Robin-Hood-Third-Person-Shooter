@@ -44,6 +44,8 @@ public class Bow : MonoBehaviour
 
     AudioSource bowAudio;
 
+    public Camera cam;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -99,7 +101,8 @@ public class Bow : MonoBehaviour
             currentCrossHair = Instantiate(crossHairPrefab) as GameObject;
 
         currentCrossHair.transform.position = crosshairPos;
-        currentCrossHair.transform.LookAt(Camera.main.transform);
+        //currentCrossHair.transform.LookAt(Camera.main.transform);
+        currentCrossHair.transform.LookAt(cam.transform);
     }
 
     public void RemoveCrosshair()
@@ -122,7 +125,10 @@ public class Bow : MonoBehaviour
         Vector3 dir = hitPoint - bowSettings.arrowPos.position;
         currentArrow = Instantiate(bowSettings.arrowPrefab, bowSettings.arrowPos.position, bowSettings.arrowPos.rotation) as Rigidbody;
 
-        currentArrow.AddForce(dir * bowSettings.arrowForce, ForceMode.Force);
+        Vector3 force = dir * bowSettings.arrowForce;
+
+
+		currentArrow.AddForce(force, ForceMode.Force);
 
         bowSettings.arrowCount -= 1;
     }

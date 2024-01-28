@@ -14,6 +14,7 @@ public class setAiming : MonoBehaviour
     Ray ray;
 
     bool isAiming;
+    bool canShoot;
 
     bool hitDetected;
 
@@ -33,6 +34,12 @@ public class setAiming : MonoBehaviour
         cam = transform.parent.GetChild(2).GetComponent<Camera>();
 
 		_input = transform.parent.GetComponent<PlayerInput>();
+
+        _input.actions["Aim"].started += setBowAimingTrue;
+        _input.actions["Aim"].canceled += setBowAimingFalse;
+
+        _input.actions["Shoot"].started += setShootTrue;
+        _input.actions["Shoot"].canceled += setShootFalse;
 	}
 
     // Update is called once per frame
@@ -40,7 +47,7 @@ public class setAiming : MonoBehaviour
     {
         // input
         //bool isAiming = Input.GetKey(aim);
-        bool isAiming = false;
+        //bool isAiming = false;
         if (bowScript.bowSettings.arrowCount < 1)
             isAiming = false;
 
@@ -56,11 +63,14 @@ public class setAiming : MonoBehaviour
             {
                 //animator.SetBool("pullString", Input.GetKey(fire));
                 //if (Input.GetKey(fire))
-                    //bowScript.PullString();
-            }
+                //    bowScript.PullString();
+				animator.SetBool("pullString", canShoot);
+				if (canShoot)
+					bowScript.PullString();
+			}
 
             //if (Input.GetKeyUp(fire))
-            if (false)
+            if (canShoot)
             {
                 bowScript.ReleaseString();
                 animator.SetTrigger("fire");
@@ -72,6 +82,7 @@ public class setAiming : MonoBehaviour
                 {
                     bowScript.Fire(ray.GetPoint(300f));
                 }
+                canShoot = false;
             }
         }
         else
@@ -82,6 +93,25 @@ public class setAiming : MonoBehaviour
             bowScript.DisableArrow();
             bowScript.ReleaseString();
         }
+    }
+
+    private void setBowAimingTrue(InputAction.CallbackContext context)
+    {
+        isAiming = true;
+    }
+    private void setBowAimingFalse(InputAction.CallbackContext context)
+    {
+        isAiming = false;
+    }
+
+    private void setShootTrue(InputAction.CallbackContext context)
+    {
+        canShoot = true;
+    }
+
+    private void setShootFalse(InputAction.CallbackContext context)
+    {
+        canShoot = false;
     }
     
     void Aim()

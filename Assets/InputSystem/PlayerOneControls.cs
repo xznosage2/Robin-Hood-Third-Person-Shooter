@@ -49,6 +49,14 @@ public class @PlayerOneControls : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""MouseLook"",
+                    ""type"": ""Value"",
+                    ""id"": ""893de260-ed53-475e-be11-77169bc48a5e"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -122,7 +130,7 @@ public class @PlayerOneControls : IInputActionCollection, IDisposable
                     ""name"": """",
                     ""id"": ""f1dbe8a5-32f6-4850-a6b0-6c83da84ff09"",
                     ""path"": ""<Mouse>/leftButton"",
-                    ""interactions"": """",
+                    ""interactions"": ""Press"",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Shoot"",
@@ -137,6 +145,17 @@ public class @PlayerOneControls : IInputActionCollection, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Aim"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2e9130c0-e936-450b-b529-056729210732"",
+                    ""path"": ""<Mouse>/delta"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MouseLook"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -178,6 +197,7 @@ public class @PlayerOneControls : IInputActionCollection, IDisposable
         m_Movement_Sprint = m_Movement.FindAction("Sprint", throwIfNotFound: true);
         m_Movement_Shoot = m_Movement.FindAction("Shoot", throwIfNotFound: true);
         m_Movement_Aim = m_Movement.FindAction("Aim", throwIfNotFound: true);
+        m_Movement_MouseLook = m_Movement.FindAction("MouseLook", throwIfNotFound: true);
         // Shoot
         m_Shoot = asset.FindActionMap("Shoot", throwIfNotFound: true);
         m_Shoot_Shoot = m_Shoot.FindAction("Shoot", throwIfNotFound: true);
@@ -234,6 +254,7 @@ public class @PlayerOneControls : IInputActionCollection, IDisposable
     private readonly InputAction m_Movement_Sprint;
     private readonly InputAction m_Movement_Shoot;
     private readonly InputAction m_Movement_Aim;
+    private readonly InputAction m_Movement_MouseLook;
     public struct MovementActions
     {
         private @PlayerOneControls m_Wrapper;
@@ -242,6 +263,7 @@ public class @PlayerOneControls : IInputActionCollection, IDisposable
         public InputAction @Sprint => m_Wrapper.m_Movement_Sprint;
         public InputAction @Shoot => m_Wrapper.m_Movement_Shoot;
         public InputAction @Aim => m_Wrapper.m_Movement_Aim;
+        public InputAction @MouseLook => m_Wrapper.m_Movement_MouseLook;
         public InputActionMap Get() { return m_Wrapper.m_Movement; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -263,6 +285,9 @@ public class @PlayerOneControls : IInputActionCollection, IDisposable
                 @Aim.started -= m_Wrapper.m_MovementActionsCallbackInterface.OnAim;
                 @Aim.performed -= m_Wrapper.m_MovementActionsCallbackInterface.OnAim;
                 @Aim.canceled -= m_Wrapper.m_MovementActionsCallbackInterface.OnAim;
+                @MouseLook.started -= m_Wrapper.m_MovementActionsCallbackInterface.OnMouseLook;
+                @MouseLook.performed -= m_Wrapper.m_MovementActionsCallbackInterface.OnMouseLook;
+                @MouseLook.canceled -= m_Wrapper.m_MovementActionsCallbackInterface.OnMouseLook;
             }
             m_Wrapper.m_MovementActionsCallbackInterface = instance;
             if (instance != null)
@@ -279,6 +304,9 @@ public class @PlayerOneControls : IInputActionCollection, IDisposable
                 @Aim.started += instance.OnAim;
                 @Aim.performed += instance.OnAim;
                 @Aim.canceled += instance.OnAim;
+                @MouseLook.started += instance.OnMouseLook;
+                @MouseLook.performed += instance.OnMouseLook;
+                @MouseLook.canceled += instance.OnMouseLook;
             }
         }
     }
@@ -322,6 +350,7 @@ public class @PlayerOneControls : IInputActionCollection, IDisposable
         void OnSprint(InputAction.CallbackContext context);
         void OnShoot(InputAction.CallbackContext context);
         void OnAim(InputAction.CallbackContext context);
+        void OnMouseLook(InputAction.CallbackContext context);
     }
     public interface IShootActions
     {
