@@ -10,6 +10,7 @@ public class Shoot : MonoBehaviour
     public Transform arrowSpawn;
     public float shootForce = 20f;
     public int playerIndex;
+    int arrowLevel;
 
     private PlayerInput _input;
 
@@ -28,7 +29,7 @@ public class Shoot : MonoBehaviour
         //{
         //    GameObject go = Instantiate(arrowPrefab, arrowSpawn.position, Quaternion.identity);
         //    go.AddComponent<Arrow>();
-        //    go.GetComponent<Arrow>().setplayerIndex(playerIndex);
+        //    go.GetComponent<Arrow>().setPlayerIndex(playerIndex);
             
         //    Rigidbody rb = go.GetComponent<Rigidbody>();
         //    rb.velocity = cam.transform.forward * shootForce;
@@ -40,9 +41,15 @@ public class Shoot : MonoBehaviour
     {
 		GameObject go = Instantiate(arrowPrefab, arrowSpawn.position, Quaternion.identity);
 		go.AddComponent<Arrow>();
-		go.GetComponent<Arrow>().setplayerIndex(playerIndex);
+        go.AddComponent<Arrow>().dmg = 1 * arrowLevel;
+		go.GetComponent<Arrow>().setPlayerIndex(playerIndex);
 
 		Rigidbody rb = go.GetComponent<Rigidbody>();
 		rb.velocity = cam.transform.forward * shootForce;
 	}
+
+    public void UpgradeArrow()
+    {
+        arrowLevel += 1;
+    }
 }

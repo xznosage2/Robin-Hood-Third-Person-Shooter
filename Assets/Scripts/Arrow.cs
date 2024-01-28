@@ -5,17 +5,21 @@ using UnityEngine.UI;
 
 public class Arrow : MonoBehaviour
 {
+
+
     Rigidbody rb;
     BoxCollider bx;
     bool disableRotation;
     public float destroyTime = 10f;
     AudioSource arrowAudio;
-    private int playerIndex;
+    int playerIndex;
+    public int dmg { get; set; }
+
 
     // Start is called before the first frame update
     private void Awake()
     {
-        
+
     }
     void Start()
     {
@@ -24,9 +28,12 @@ public class Arrow : MonoBehaviour
         arrowAudio = GetComponent<AudioSource>();
 
         Destroy(this.gameObject, destroyTime);
+
     }
     void Update()
     {
+        if (dmg > 1) UpgradeArrow(dmg);
+
         if (!disableRotation)
             transform.rotation = Quaternion.LookRotation(rb.velocity);
     }
@@ -50,14 +57,19 @@ public class Arrow : MonoBehaviour
         }
     }
 
-    public void setplayerIndex(int player)
+    public void setPlayerIndex(int player)
     {
         playerIndex = player;
     }
-
-    public int getplayerIndex()
+    public int getPlayerIndex()
     {
         return playerIndex;
+    }
+
+    public void UpgradeArrow(int dmg)
+    {
+        GetComponent<Damage>().setDamage(dmg);
+        Debug.Log(dmg);
     }
 
 

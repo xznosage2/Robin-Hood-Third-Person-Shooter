@@ -19,14 +19,19 @@ public class Damage : MonoBehaviour, IDamagable
 		
 	}
 
-	private void OnTriggerEnter(Collider other)
+    public void setDamage(int dmg)
+    {
+        damage = dmg;
+    }
+
+    private void OnTriggerEnter(Collider other)
     {
         if(other.gameObject.tag == "Enemy")
         {
             if (oneTime && other.gameObject.TryGetComponent<IDamagable>(out IDamagable damagable))
             {
                 damagable.TakeDamage(damage);
-                int player = GetComponent<Arrow>().getplayerIndex();
+                int player = GetComponent<Arrow>().getPlayerIndex();
                 other.gameObject.GetComponent<Enemy>().setPlayerIndex(player);
                 DestroyGameObject();
             }
