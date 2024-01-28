@@ -235,7 +235,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Press F to Upgrade Weapon
+  m_text: 'Press F/Y to Upgrade Weapon
 
     Points to Upgrade Weapon: 0'
   m_isRightToLeft: 0
