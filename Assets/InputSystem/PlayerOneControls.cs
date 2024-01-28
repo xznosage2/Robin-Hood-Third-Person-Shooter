@@ -160,33 +160,6 @@ public class @PlayerOneControls : IInputActionCollection, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
-        },
-        {
-            ""name"": ""Shoot"",
-            ""id"": ""a2de2814-063d-4064-a90d-8d23d9db1689"",
-            ""actions"": [
-                {
-                    ""name"": ""Shoot"",
-                    ""type"": ""Button"",
-                    ""id"": ""14d8f3ef-695f-4fcd-a9ee-50bf084d5ff0"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """"
-                }
-            ],
-            ""bindings"": [
-                {
-                    ""name"": """",
-                    ""id"": ""9ffe54a9-c85d-4a17-995d-3749aecbbb52"",
-                    ""path"": ""<Mouse>/leftButton"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Shoot"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                }
-            ]
         }
     ],
     ""controlSchemes"": []
@@ -198,9 +171,6 @@ public class @PlayerOneControls : IInputActionCollection, IDisposable
         m_Movement_Shoot = m_Movement.FindAction("Shoot", throwIfNotFound: true);
         m_Movement_Aim = m_Movement.FindAction("Aim", throwIfNotFound: true);
         m_Movement_MouseLook = m_Movement.FindAction("MouseLook", throwIfNotFound: true);
-        // Shoot
-        m_Shoot = asset.FindActionMap("Shoot", throwIfNotFound: true);
-        m_Shoot_Shoot = m_Shoot.FindAction("Shoot", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -311,39 +281,6 @@ public class @PlayerOneControls : IInputActionCollection, IDisposable
         }
     }
     public MovementActions @Movement => new MovementActions(this);
-
-    // Shoot
-    private readonly InputActionMap m_Shoot;
-    private IShootActions m_ShootActionsCallbackInterface;
-    private readonly InputAction m_Shoot_Shoot;
-    public struct ShootActions
-    {
-        private @PlayerOneControls m_Wrapper;
-        public ShootActions(@PlayerOneControls wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Shoot => m_Wrapper.m_Shoot_Shoot;
-        public InputActionMap Get() { return m_Wrapper.m_Shoot; }
-        public void Enable() { Get().Enable(); }
-        public void Disable() { Get().Disable(); }
-        public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(ShootActions set) { return set.Get(); }
-        public void SetCallbacks(IShootActions instance)
-        {
-            if (m_Wrapper.m_ShootActionsCallbackInterface != null)
-            {
-                @Shoot.started -= m_Wrapper.m_ShootActionsCallbackInterface.OnShoot;
-                @Shoot.performed -= m_Wrapper.m_ShootActionsCallbackInterface.OnShoot;
-                @Shoot.canceled -= m_Wrapper.m_ShootActionsCallbackInterface.OnShoot;
-            }
-            m_Wrapper.m_ShootActionsCallbackInterface = instance;
-            if (instance != null)
-            {
-                @Shoot.started += instance.OnShoot;
-                @Shoot.performed += instance.OnShoot;
-                @Shoot.canceled += instance.OnShoot;
-            }
-        }
-    }
-    public ShootActions @Shoot => new ShootActions(this);
     public interface IMovementActions
     {
         void OnWalk(InputAction.CallbackContext context);
@@ -351,9 +288,5 @@ public class @PlayerOneControls : IInputActionCollection, IDisposable
         void OnShoot(InputAction.CallbackContext context);
         void OnAim(InputAction.CallbackContext context);
         void OnMouseLook(InputAction.CallbackContext context);
-    }
-    public interface IShootActions
-    {
-        void OnShoot(InputAction.CallbackContext context);
     }
 }

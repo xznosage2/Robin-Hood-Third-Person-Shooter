@@ -26,6 +26,7 @@ public class BlendAnimationSelector : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //input
         bool forwardPressed = Input.GetKey(forward);
         bool runPressed = Input.GetKey(runForward);
 

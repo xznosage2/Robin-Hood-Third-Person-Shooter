@@ -19,6 +19,7 @@ public class AnimationStateController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //input
         bool isRunning = animator.GetBool("isRunning");
         bool isWalking = animator.GetBool("isWalking");
         bool forwardPressed = Input.GetKey(forward);
