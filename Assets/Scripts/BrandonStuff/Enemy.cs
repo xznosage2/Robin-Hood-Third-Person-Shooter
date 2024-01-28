@@ -1,3 +1,4 @@
+using Newtonsoft.Json.Bson;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,7 +18,13 @@ public class Enemy : MonoBehaviour
 
     public GameManager gManager;
 
+	GameObject closetObject;
+
+	int playerIndex = 0;
+
     int wave = 1;
+
+    private float oldDistance = 0;
 
     public LayerMask whatIsGround, whatIsPlayer;
 
@@ -31,6 +38,8 @@ public class Enemy : MonoBehaviour
     public float attackRange;
     public bool playerInAttackRange;
     public bool isMoving = false;
+
+    
 
 	private void Awake()
 	{
@@ -64,6 +73,7 @@ public class Enemy : MonoBehaviour
         lastPosition.position = transform.position;
         anim.SetFloat("Speed", speed);
 
+        FindNearestPlayer();
 	}
 
 	private void ChasePlayer()
@@ -111,8 +121,26 @@ public class Enemy : MonoBehaviour
 		
 	}
 
+    public void setPlayerIndex(int index)
+    {
+        playerIndex = index;
+    }
+
 	public void OnDestroy()
 	{
-        gManager.EnemyDied();
+        gManager.EnemyDied(playerIndex);
+	}
+
+	private void FindNearestPlayer()
+	{
+		foreach (GameObject g in gManager.Players)
+		{
+			float distance = Vector3.Distance(this.gameObject.transform.position, g.transform.position);
+			if (distance < oldDistance)
+			{
+                player = g.transform;
+				oldDistance = distance;
+			}
+		}
 	}
 }

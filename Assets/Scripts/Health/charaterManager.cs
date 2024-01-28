@@ -16,43 +16,43 @@ public class charaterManager : MonoBehaviour, IDamagable
 
     [SerializeField] public int score = 0;
 
-    private int playerIndex = 1;
+    public int playerIndex = 1;
 
-	public void Awake()
-	{
-		if (healthUI != null)
-		{
-			healthUI.maxValue = MaxHealth;
-		}
-	}
+    public void Awake()
+    {
+        if (healthUI != null)
+        {
+            healthUI.maxValue = MaxHealth;
+        }
+    }
 
-	public void Update()
-	{
-		if(scoreUI != null)
+    public void Update()
+    {
+        if (scoreUI != null)
         {
             scoreUI.text = score.ToString();
         }
-        if(healthUI != null)
+        if (healthUI != null)
         {
             healthUI.value = health;
         }
-	}
+    }
 
-	public void TakeDamage(float damage)
-	{
-		health -= (int)damage;
+    public void TakeDamage(float damage)
+    {
+        health -= (int)damage;
         Debug.Log("damage taken: " + damage);
-        if(health <= 0)
+        if (health <= 0)
         {
             DestroyGameObject();
         }
-	}
+    }
 
     public void updateScore(int score)
     {
         this.score += score;
     }
-    
+
     public void SetHealth(int wave)
     {
         Debug.Log("Increased Health");
@@ -67,6 +67,11 @@ public class charaterManager : MonoBehaviour, IDamagable
     public int GetPlayerIndex()
     {
         return playerIndex;
+    }
+
+    public void UpdateIndex(int num)
+    {
+        playerIndex = num;
     }
 }
 
