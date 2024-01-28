@@ -10,12 +10,12 @@ public class Arrow : MonoBehaviour
     bool disableRotation;
     public float destroyTime = 10f;
     AudioSource arrowAudio;
-    int playerIndex;
+    private int playerIndex;
 
     // Start is called before the first frame update
     private void Awake()
     {
-
+        
     }
     void Start()
     {
@@ -54,6 +54,7 @@ public class Arrow : MonoBehaviour
     {
         playerIndex = player;
     }
+
     public int getplayerIndex()
     {
         return playerIndex;

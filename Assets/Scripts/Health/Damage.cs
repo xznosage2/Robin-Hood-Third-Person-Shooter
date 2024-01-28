@@ -12,6 +12,8 @@ public class Damage : MonoBehaviour, IDamagable
     [Header("Is Constant")]
     [SerializeField] bool oneTime = true;
 
+    public int PlayerIndex = 1;
+
 	public void TakeDamage(float damage)
 	{
 		
@@ -19,10 +21,25 @@ public class Damage : MonoBehaviour, IDamagable
 
 	private void OnTriggerEnter(Collider other)
     {
-        if (oneTime && other.gameObject.TryGetComponent<IDamagable>(out IDamagable damagable))
+        if(other.gameObject.tag == "Enemy")
         {
-            damagable.TakeDamage(damage);
+            if (oneTime && other.gameObject.TryGetComponent<IDamagable>(out IDamagable damagable))
+            {
+                damagable.TakeDamage(damage);
+                int player = GetComponent<Arrow>().getplayerIndex();
+                other.gameObject.GetComponent<Enemy>().setPlayerIndex(player);
+                DestroyGameObject();
+            }
         }
+        if(other.gameObject.tag == "Player")
+        {
+			if (oneTime && other.gameObject.TryGetComponent<IDamagable>(out IDamagable damagable))
+			{
+				damagable.TakeDamage(damage);
+			
+				DestroyGameObject();
+			}
+		}
     }
     private void OnTriggerStay(Collider other)
     {
@@ -30,6 +47,11 @@ public class Damage : MonoBehaviour, IDamagable
         {
             damagable.TakeDamage(damage * Time.deltaTime);
         }
+    }
+
+    public void DestroyGameObject()
+    {
+        Destroy(gameObject);
     }
 }
 

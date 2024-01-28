@@ -8,6 +8,8 @@ public class GameManager : MonoBehaviour
 
 	[SerializeField] Transform[] spawnPoints;
 	[SerializeField] GameObject Zombie;
+	public ScriptableObject MultiplayerManager;
+	public GameObject[] Players = new GameObject[4];
 
 	public int round = 1;
 	public int spawnNumber = 5;
@@ -18,6 +20,7 @@ public class GameManager : MonoBehaviour
 
 	bool canSpawn = true;
 	float spawnCoolDown = 0.5f;
+	
 
 	// Start is called before the first frame update
 
@@ -70,9 +73,15 @@ public class GameManager : MonoBehaviour
 		round += 1;
 	}
 
-	public void EnemyDied()
+	public void setPlayerPoint(int index)
+	{
+		Players[index].GetComponent<charaterManager>().updateScore(100);
+	}
+
+	public void EnemyDied(int index)
 	{
 		liveEnemies--;
+		setPlayerPoint(index);
 		CheckEndRound();
 	}
 
@@ -80,5 +89,9 @@ public class GameManager : MonoBehaviour
 	{
 		canSpawn = true;
 	}
+
+
+
 }
+
 
