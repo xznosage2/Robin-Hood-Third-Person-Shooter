@@ -16,6 +16,8 @@ public class charaterManager : MonoBehaviour, IDamagable
 
     [SerializeField] public int score = 0;
 
+    public GameManager gameManager;
+
     public int playerIndex = 1;
 
     public void Awake()
@@ -24,6 +26,7 @@ public class charaterManager : MonoBehaviour, IDamagable
         {
             healthUI.maxValue = MaxHealth;
         }
+        gameManager = FindObjectOfType<GameManager>();
     }
 
     public void Update()
@@ -56,11 +59,15 @@ public class charaterManager : MonoBehaviour, IDamagable
     public void SetHealth(int wave)
     {
         Debug.Log("Increased Health");
-        health = wave * 2;
+        health = (int)(wave * 1.05f);
     }
 
     public void DestroyGameObject()
     {
+        if(gameObject.tag == "Player")
+        {
+            gameManager.PlayerDied();
+        }
         Destroy(gameObject);
     }
 

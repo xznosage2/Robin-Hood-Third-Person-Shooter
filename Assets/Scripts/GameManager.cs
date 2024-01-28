@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -8,7 +10,7 @@ public class GameManager : MonoBehaviour
 
 	[SerializeField] Transform[] spawnPoints;
 	[SerializeField] GameObject Zombie;
-	public ScriptableObject MultiplayerManager;
+	public MultiplayerManager MultiplayerManager;
 	public GameObject[] Players = new GameObject[4];
 
 	public int round = 1;
@@ -20,13 +22,21 @@ public class GameManager : MonoBehaviour
 
 	bool canSpawn = true;
 	float spawnCoolDown = 0.5f;
-	
+
+	int numPlayer = 0;
 
 	// Start is called before the first frame update
 
 	public void Awake()
 	{
-		
+		Players = MultiplayerManager.GetPlayers();
+		for(int i = 0; i < Players.Count(); i++)
+		{
+			if (Players[i] != null)
+			{
+				numPlayer++;
+			}
+		}
 	}
 
 	void Start()
@@ -48,7 +58,6 @@ public class GameManager : MonoBehaviour
 			int random = Random.Range(0, spawnPoints.Length);
 			GameObject zom = Instantiate(Zombie, spawnPoints[random]);
 			zom.GetComponent<charaterManager>().SetHealth(round);
-			//Zombie.GetComponent<Enemy>().SetEnemyHealth(round);
 
 			totalEnemiesSpawned += 1;
 			canSpawn = false;
@@ -90,7 +99,19 @@ public class GameManager : MonoBehaviour
 		canSpawn = true;
 	}
 
+	public void CheckGameOver()
+	{
+		if(numPlayer == 0)
+		{
+			SceneManager.LoadScene("GameOver");
+		}
+	}
 
+	public void PlayerDied()
+	{
+		numPlayer--;
+		CheckGameOver();
+	}
 
 }
 

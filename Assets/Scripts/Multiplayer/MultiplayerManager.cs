@@ -13,7 +13,7 @@ public class MultiplayerManager: MonoBehaviour
 
 	[SerializeField] private Multiplay_SO _multi_SO;
 
-	private List<GameObject> _players = new List<GameObject>();
+	public List<GameObject> _players = new List<GameObject>();
 
 	[SerializeField] private LayerMask[] _layersMasks;
 
@@ -40,6 +40,7 @@ public class MultiplayerManager: MonoBehaviour
 		{
 			_players.Add(Instantiate(_multi_SO.playerPrefab));
 			_players[i].transform.position = new Vector3(i * 3, 1, 0);
+			_players[i].GetComponent<charaterManager>().UpdateIndex(i);
 			Debug.Log("Player " + i + " has been added");
 			if (i != 0)
 			{
@@ -55,6 +56,11 @@ public class MultiplayerManager: MonoBehaviour
 	private void Update()
 	{
 		
+	}
+
+	public GameObject[] GetPlayers()
+	{
+		return _players.ToArray();
 	}
 
 	public void setGameOn()
