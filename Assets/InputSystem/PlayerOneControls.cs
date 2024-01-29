@@ -335,7 +335,13 @@ public class @PlayerOneControls : IInputActionCollection, IDisposable
             ]
         }
     ],
-    ""controlSchemes"": []
+    ""controlSchemes"": [
+        {
+            ""name"": ""Base"",
+            ""bindingGroup"": ""Base"",
+            ""devices"": []
+        }
+    ]
 }");
         // Movement
         m_Movement = asset.FindActionMap("Movement", throwIfNotFound: true);
@@ -463,6 +469,15 @@ public class @PlayerOneControls : IInputActionCollection, IDisposable
         }
     }
     public MovementActions @Movement => new MovementActions(this);
+    private int m_BaseSchemeIndex = -1;
+    public InputControlScheme BaseScheme
+    {
+        get
+        {
+            if (m_BaseSchemeIndex == -1) m_BaseSchemeIndex = asset.FindControlSchemeIndex("Base");
+            return asset.controlSchemes[m_BaseSchemeIndex];
+        }
+    }
     public interface IMovementActions
     {
         void OnWalk(InputAction.CallbackContext context);

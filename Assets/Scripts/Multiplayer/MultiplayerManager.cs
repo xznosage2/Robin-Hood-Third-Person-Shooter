@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditorInternal;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class MultiplayerManager: MonoBehaviour
 {
@@ -16,6 +17,8 @@ public class MultiplayerManager: MonoBehaviour
 	public List<GameObject> _players = new List<GameObject>();
 
 	[SerializeField] private LayerMask[] _layersMasks;
+
+	[SerializeField] private PlayerInputManager _playerInputManager;
 
 	private void Awake()
 	{
@@ -36,16 +39,35 @@ public class MultiplayerManager: MonoBehaviour
 
 		Debug.Log("Muldiplayer game started, Players Connected: " + _multi_SO.playerCount);
 
+		//_playerInputManager.playerCount = _playerCount;
+
 		for (int i = 0; i < _playerCount; i++)
 		{
-			_players.Add(Instantiate(_multi_SO.playerPrefab));
-			_players[i].transform.position = new Vector3(i * 3, 1, 0);
-			_players[i].GetComponent<charaterManager>().UpdateIndex(i);
-			Debug.Log("Player " + i + " has been added");
 			if (i != 0)
 			{
 				Destroy(_players[i].transform.GetChild(2).GetComponent<AudioListener>());
+				InputDevice device = InputSystem.devices[i + 3];
+				print(device.name);
+				PlayerInput pi = _playerInputManager.JoinPlayer(i, i, "Base", device);
+				_players.Add(pi.gameObject);
 			}
+			else
+			{
+				InputDevice device = InputSystem.devices[i];
+				print(device.name);
+				PlayerInput pio = null;
+				pio = _playerInputManager.JoinPlayer(i + 1, i + 1, "Base", device);
+				if (pio != null) _players.Add(pio.gameObject);
+				else print("WTF why am I NULLLLL");
+			}
+			
+			
+			//_players.Add(Instantiate(_multi_SO.playerPrefab));
+			_players[i].transform.position = new Vector3(i * 3, 1, 0);
+			_players[i].GetComponent<charaterManager>().UpdateIndex(i);
+			//Debug.Log("Player " + i + " has been added");
+			
+			
 		}
 
 		setupPlayerCam();
