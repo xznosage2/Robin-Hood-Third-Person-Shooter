@@ -41,7 +41,7 @@ public class Shoot : MonoBehaviour
     {
 		GameObject go = Instantiate(arrowPrefab, arrowSpawn.position, Quaternion.identity);
 		go.AddComponent<Arrow>();
-        go.AddComponent<Arrow>().dmg = 1 * arrowLevel;
+        go.AddComponent<Arrow>().dmg = 2 * arrowLevel;
 		go.GetComponent<Arrow>().setPlayerIndex(playerIndex);
 
 		Rigidbody rb = go.GetComponent<Rigidbody>();

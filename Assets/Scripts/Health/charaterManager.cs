@@ -55,6 +55,11 @@ public class charaterManager : MonoBehaviour, IDamagable
     {
         this.score += score;
     }
+    public int getScore()
+    {
+        return score;
+    }
+
 
     public void SetHealth(int wave)
     {
