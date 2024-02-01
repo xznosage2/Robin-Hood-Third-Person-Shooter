@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 624821db71b56e940b9bca820eadd5b3, type: 3}
   m_Name: Multiplayer_SO
   m_EditorClassIdentifier: 
-  playerCount: 1
+  playerCount: 2
   canStartGame: 1
   playerPrefabs:
   - {fileID: 7767672356103584995, guid: 6395512f1591aa64a91d9432ab00d397, type: 3}
