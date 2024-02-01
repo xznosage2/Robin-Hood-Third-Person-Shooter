@@ -43,7 +43,7 @@ public class Enemy : MonoBehaviour
 
 	private void Awake()
 	{
-        player = GameObject.Find("Player").transform;
+        //player = GameObject.Find("MultiplayerPlayer").transform;
         gManager = GameObject.Find("GameManager").GetComponent<GameManager>();
 
         agent = GetComponent<NavMeshAgent>();
@@ -63,6 +63,7 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        FindNearestPlayer();
         playerInAttackRange = Physics.CheckSphere(sensePoint.position, attackRange, whatIsPlayer);
 
         if (!playerInAttackRange) ChasePlayer();
@@ -73,13 +74,13 @@ public class Enemy : MonoBehaviour
         lastPosition.position = transform.position;
         anim.SetFloat("Speed", speed);
 
-        FindNearestPlayer();
 	}
 
 	private void ChasePlayer()
     {
         anim.SetBool("Moving", true);
-        agent.SetDestination(player.position);
+        if (player != null) agent.SetDestination(player.position);
+        else Debug.Log("Where the Fuck is the player");
     }
 
     private void AttackPlayer()

@@ -12,6 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 624821db71b56e940b9bca820eadd5b3, type: 3}
   m_Name: Multiplayer_SO
   m_EditorClassIdentifier: 
-  playerCount: 1
+  playerCount: 3
   canStartGame: 1
-  playerPrefab: {fileID: 7767672356103584995, guid: 6395512f1591aa64a91d9432ab00d397, type: 3}
+  playerPrefabs:
+  - {fileID: 7767672356103584995, guid: 6395512f1591aa64a91d9432ab00d397, type: 3}
+  - {fileID: 7767672356103584995, guid: 6c6825a88c92bb24ab92bc53a191db5f, type: 3}
+  - {fileID: 7767672356103584995, guid: 1971ed53530cf904c803556d0092c602, type: 3}
+  - {fileID: 7767672356103584995, guid: ad87ff91efb780c49b2742dac87fd048, type: 3}

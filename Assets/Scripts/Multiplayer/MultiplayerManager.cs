@@ -1,8 +1,12 @@
+using Cinemachine;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO.Pipes;
 using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Users;
 
 public class MultiplayerManager: MonoBehaviour
 {
@@ -19,6 +23,9 @@ public class MultiplayerManager: MonoBehaviour
 	[SerializeField] private LayerMask[] _layersMasks;
 
 	[SerializeField] private PlayerInputManager _playerInputManager;
+	private int _playerIndex = 0;
+
+	[SerializeField] private Transform[] _spawnPoints;
 
 	private void Awake()
 	{
@@ -37,42 +44,67 @@ public class MultiplayerManager: MonoBehaviour
 		if (!_multi_SO.canStartGame) return;
 		_playerCount = _multi_SO.playerCount;
 
-		Debug.Log("Muldiplayer game started, Players Connected: " + _multi_SO.playerCount);
+		//Debug.Log("Muldiplayer game started, Players Connected: " + _multi_SO.playerCount);
+		InputDevice[] controllers = getAllController();
 
-		//_playerInputManager.playerCount = _playerCount;
+		_playerInputManager.onPlayerJoined += swapPlayerIndex;
 
 		for (int i = 0; i < _playerCount; i++)
 		{
-			if (i != 0)
+			if (i == 0)
 			{
-				Destroy(_players[i].transform.GetChild(2).GetComponent<AudioListener>());
-				InputDevice device = InputSystem.devices[i + 3];
-				print(device.name);
-				PlayerInput pi = _playerInputManager.JoinPlayer(i, i, "Base", device);
-				_players.Add(pi.gameObject);
+				_players.Add(_playerInputManager.JoinPlayer(0, 0, "Keyboard", InputSystem.devices[0]).gameObject);	
+				//_players.Add(_playerInputManager.JoinPlayer(0, 0, "Gamepad", controllers[0]).gameObject);	
+
+			}
+			else if (i == 1)
+			{
+				_players.Add(_playerInputManager.JoinPlayer(1, 1, "Gamepad", controllers[0]).gameObject);
+			}
+			else if (i == 2)
+			{
+				_players.Add(_playerInputManager.JoinPlayer(2, 2, "Gamepad", controllers[1]).gameObject);
 			}
 			else
 			{
-				InputDevice device = InputSystem.devices[i];
-				print(device.name);
-				PlayerInput pio = null;
-				pio = _playerInputManager.JoinPlayer(i + 1, i + 1, "Base", device);
-				if (pio != null) _players.Add(pio.gameObject);
-				else print("WTF why am I NULLLLL");
+				_players.Add(_playerInputManager.JoinPlayer(3, 3, "Gamepad", controllers[2]).gameObject);
 			}
 			
-			
-			//_players.Add(Instantiate(_multi_SO.playerPrefab));
-			_players[i].transform.position = new Vector3(i * 3, 1, 0);
+
+			_players[i].transform.position = _spawnPoints[i].position;
 			_players[i].GetComponent<charaterManager>().UpdateIndex(i);
-			//Debug.Log("Player " + i + " has been added");
-			
+			//Debug.Log("Player " + i + " has been added"); 
 			
 		}
 
 		setupPlayerCam();
 
 		canvas = GetComponent<Canvas>();
+	}
+
+	private void swapPlayerIndex(PlayerInput input)
+	{
+		input.transform.GetChild(1).GetComponent<CinemachineInputProvider>().PlayerIndex = _playerIndex++;
+	}
+
+	private InputDevice[] getAllController()
+	{
+		InputDevice[] controller = new InputDevice[4];
+		int controllerNum = 0;
+
+		for (int i = 0; i < InputSystem.devices.Count; i++)
+		{
+			if (InputSystem.devices[i].name == "XInputControllerWindows" ||
+				InputSystem.devices[i].name == "XInputControllerWindows1" ||
+				InputSystem.devices[i].name == "XInputControllerWindows2" ||
+					InputSystem.devices[i].name == "XInputControllerWindows3")
+			{
+				controller[controllerNum] = InputSystem.devices[i];
+				controllerNum++;
+			}
+		}
+
+		return controller;
 	}
 
 	private void Update()
@@ -193,6 +225,7 @@ public class MultiplayerManager: MonoBehaviour
 		cam = _players[1].transform.GetChild(2).GetComponent<Camera>();
 		cam.rect = rect;
 		cam.cullingMask = _layersMasks[1];
+		Destroy(cam.gameObject.GetComponent<AudioListener>());
 		GameObject canv = Instantiate(canvasObj);
 		canvas = canv.GetComponent<Canvas>();
 		canvas.worldCamera = cam;
@@ -219,6 +252,7 @@ public class MultiplayerManager: MonoBehaviour
 		cam = _players[2].transform.GetChild(2).GetComponent<Camera>();
 		cam.rect = rect;
 		cam.cullingMask = _layersMasks[2];
+		Destroy(cam.gameObject.GetComponent<AudioListener>());
 		GameObject canv = Instantiate(canvasObj);
 		canvas = canv.GetComponent<Canvas>();
 		canvas.worldCamera = cam;
@@ -238,6 +272,7 @@ public class MultiplayerManager: MonoBehaviour
 		cam = _players[3].transform.GetChild(2).GetComponent<Camera>();
 		cam.rect = rect;
 		cam.cullingMask = _layersMasks[3];
+		Destroy(cam.gameObject.GetComponent<AudioListener>());
 		GameObject canv = Instantiate(canvasObj);
 		canvas = canv.GetComponent<Canvas>();
 		canvas.worldCamera = cam;
@@ -275,4 +310,46 @@ public class MultiplayerManager: MonoBehaviour
 	}
 
 	#endregion
+
+	private void setISM()
+	{
+		for (int i = 0; i < _playerCount; i++)
+		{
+			InputDevice[] many = InputSystem.devices.ToArray();
+			InputDevice device;
+			PlayerInput pi;
+			switch (i)
+			{
+				case 1:
+					//gets the devices that connectedto the player
+					InputDevice[] devices = { InputSystem.devices[0], InputSystem.devices[1] };
+					//print(devices[0].name + ", " + devices[1].name);
+					//device = InputUser.GetUnpairedInputDevices()[0];
+					PlayerInput pio = _playerInputManager.JoinPlayer(1, 1, "Keyboard", devices);
+					//PlayerInput pio = _playerInputManager.JoinPlayer(1, 1, "Gamepad", device);
+
+					if (pio != null) _players.Add(pio.gameObject);
+					else print("WTF why am I NULLLLL");
+					break;
+				case 0:
+					//device = device = InputUser.GetUnpairedInputDevices()[1];
+					//pi = _playerInputManager.JoinPlayer(1, 1, "Gamepad", device);
+					device = InputSystem.devices[3];
+					pi = _playerInputManager.JoinPlayer(0, 0, "Gamepad", device);
+					if (pi == null) { Debug.Log("WTF"); return; }
+					else _players.Add(pi.gameObject);
+					break;
+				case 2:
+					device = InputSystem.devices[4];
+					pi = _playerInputManager.JoinPlayer(2, 2, "Gamepad", device);
+					_players.Add(pi.gameObject);
+					break;
+				case 3:
+					device = InputSystem.devices[5];
+					pi = _playerInputManager.JoinPlayer(3, 3, "MainScheme", device);
+					_players.Add(pi.gameObject);
+					break;
+			}
+		}
+	}
 }

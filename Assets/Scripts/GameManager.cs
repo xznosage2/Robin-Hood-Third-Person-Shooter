@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-	public MultiplayerManager multiplayer;
+	//public MultiplayerManager multiplayer;
 
 	[SerializeField] Transform[] spawnPoints;
 	[SerializeField] GameObject Zombie;
@@ -25,23 +25,26 @@ public class GameManager : MonoBehaviour
 
 	int numPlayer = 0;
 
+	private bool setPlayer = true;
+
 	// Start is called before the first frame update
 
 	public void Awake()
 	{
+		
+	}
+
+	void Start()
+	{
+		setPlayer = false;
 		Players = MultiplayerManager.GetPlayers();
-		for(int i = 0; i < Players.Count(); i++)
+		for (int i = 0; i < Players.Count(); i++)
 		{
 			if (Players[i] != null)
 			{
 				numPlayer++;
 			}
 		}
-	}
-
-	void Start()
-	{
-
 	}
 
 	// Update is called once per frame
@@ -54,7 +57,7 @@ public class GameManager : MonoBehaviour
 	{
 		if(totalEnemiesSpawned < spawnNumber && canSpawn == true)
 		{
-			Debug.Log("Spawned Enemy");
+			//Debug.Log("Spawned Enemy");
 			int random = Random.Range(0, spawnPoints.Length);
 			GameObject zom = Instantiate(Zombie, spawnPoints[random]);
 			zom.GetComponent<charaterManager>().SetHealth(round);
