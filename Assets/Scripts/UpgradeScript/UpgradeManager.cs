@@ -9,7 +9,8 @@ public class UpgradeManager : MonoBehaviour
     public GameObject player;
     PlayerInput playerInput;
     public GameManager gManager;
-    int upgradeCost = 1000;
+    [SerializeField] TMP_Text upgradeText;
+    public int upgradeCost = 1000;
     float timer;
 
     [SerializeField] TMP_Text tempUI;
@@ -25,6 +26,7 @@ public class UpgradeManager : MonoBehaviour
 	private void Start()
 	{
 		gManager = player.GetComponent<charaterManager>().gameManager;
+        upgradeText.text = "Points to Upgrade Weapons: " + upgradeCost;
 	}
 
 
@@ -37,6 +39,7 @@ public class UpgradeManager : MonoBehaviour
             player.GetComponent<Shoot>().UpgradeArrow();
             player.GetComponent<charaterManager>().updateScore(upgradeCost * -1);
             upgradeCost += 500;
+            upgradeText.text = "Points to Upgrade Weapons: " + upgradeCost;
         }
         else if (tempUI != null)
         {
