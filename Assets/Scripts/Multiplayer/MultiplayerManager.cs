@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO.Pipes;
+using TMPro;
 using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -206,6 +207,11 @@ public class MultiplayerManager: MonoBehaviour
 		// layer 20 is cam1
 		_players[0].transform.GetChild(0).gameObject.layer = 20;
 
+		charaterManager charMan = _players[0].GetComponent<charaterManager>();
+
+		charMan.scoreUI = canvas.transform.GetChild(4).GetComponent<TMP_Text>();
+		charMan.healthUI = canvas.transform.GetChild(7).transform.GetChild(0).GetComponent<UnityEngine.UI.Slider>();
+			
 		setCanvasActive(1, canv);
 	}
 
@@ -232,6 +238,11 @@ public class MultiplayerManager: MonoBehaviour
 		canvas.planeDistance = 0.101f;
 		// layer 21 is cam2
 		_players[1].transform.GetChild(1).gameObject.layer = 21;
+
+		charaterManager charMan = _players[1].GetComponent<charaterManager>();
+
+		charMan.scoreUI = canvas.transform.GetChild(4).GetComponent<TMP_Text>();
+		charMan.healthUI = canvas.transform.GetChild(7).transform.GetChild(0).GetComponent<UnityEngine.UI.Slider>();
 
 		setCanvasActive(2, canv);
 
@@ -260,6 +271,11 @@ public class MultiplayerManager: MonoBehaviour
 		// layer 22 is cam3
 		_players[2].transform.GetChild(1).gameObject.layer = 22;
 
+		charaterManager charMan = _players[2].GetComponent<charaterManager>();
+
+		charMan.scoreUI = canvas.transform.GetChild(4).GetComponent<TMP_Text>();
+		charMan.healthUI = canvas.transform.GetChild(7).transform.GetChild(0).GetComponent<UnityEngine.UI.Slider>();
+
 		setCanvasActive(3, canv);
 	}
 
@@ -279,6 +295,11 @@ public class MultiplayerManager: MonoBehaviour
 		canvas.planeDistance = 0.101f;
 		// layer 23 is cam4
 		_players[3].transform.GetChild(1).gameObject.layer = 23;
+
+		charaterManager charMan = _players[4].GetComponent<charaterManager>();
+
+		charMan.scoreUI = canvas.transform.GetChild(4).GetComponent<TMP_Text>();
+		charMan.healthUI = canvas.transform.GetChild(7).transform.GetChild(0).GetComponent<UnityEngine.UI.Slider>();
 
 		setCanvasActive(4, canv);
 	}

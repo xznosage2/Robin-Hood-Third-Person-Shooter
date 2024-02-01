@@ -218,8 +218,6 @@ public class twoDAnimSelect : MonoBehaviour
 		//handles changes in velocity
 		changeVelocity(forwardPressed, backPressed, leftPressed, rightPressed, runPressed, currMaxVelocity);
 		lockOrResetVelocity(forwardPressed, backPressed, leftPressed, rightPressed, runPressed, currMaxVelocity);
-		//changeVelocity(false, false, false, false, false, currMaxVelocity);
-		//lockOrResetVelocity(false, false, false, false, false, currMaxVelocity);
 
 		animator.SetFloat("Velocity Z", velocityZ);
         animator.SetFloat("Velocity X", velocityX);

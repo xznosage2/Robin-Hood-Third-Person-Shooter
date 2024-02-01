@@ -7,8 +7,8 @@ using UnityEngine.UI;
 public class charaterManager : MonoBehaviour, IDamagable
 {
     [Header("UI")]
-    [SerializeField] TMP_Text scoreUI;
-    [SerializeField] Slider healthUI;
+    [SerializeField] public TMP_Text scoreUI;
+    [SerializeField] public Slider healthUI;
 
     [SerializeField] public int health = 10;
 

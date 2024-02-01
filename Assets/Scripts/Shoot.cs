@@ -19,33 +19,39 @@ public class Shoot : MonoBehaviour
         playerIndex = GetComponent<charaterManager>().GetPlayerIndex();
 
         _input.actions["Shoot"].started += shootArrow;
+
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        // input
-        //if (Input.GetMouseButtonDown(0))
-        //{
-        //    GameObject go = Instantiate(arrowPrefab, arrowSpawn.position, Quaternion.identity);
-        //    go.AddComponent<Arrow>();
-        //    go.GetComponent<Arrow>().setPlayerIndex(playerIndex);
-            
-        //    Rigidbody rb = go.GetComponent<Rigidbody>();
-        //    rb.velocity = cam.transform.forward * shootForce;
-            
-        //}
-    }
+		Debug.Log(transform.parent.name);
+		// input
+		//if (Input.GetMouseButtonDown(0))
+		//{
+		//    GameObject go = Instantiate(arrowPrefab, arrowSpawn.position, Quaternion.identity);
+		//    go.AddComponent<Arrow>();
+		//    go.GetComponent<Arrow>().setPlayerIndex(playerIndex);
+
+		//    Rigidbody rb = go.GetComponent<Rigidbody>();
+		//    rb.velocity = cam.transform.forward * shootForce;
+
+		//}
+	}
 
     private void shootArrow(InputAction.CallbackContext context)
     {
 		GameObject go = Instantiate(arrowPrefab, arrowSpawn.position, Quaternion.identity);
-		go.AddComponent<Arrow>();
+		go.AddComponent<Damage>();
+		
+        go.AddComponent<Arrow>();
         go.AddComponent<Arrow>().dmg = 2 * arrowLevel;
 		go.GetComponent<Arrow>().setPlayerIndex(playerIndex);
 
 		Rigidbody rb = go.GetComponent<Rigidbody>();
 		rb.velocity = cam.transform.forward * shootForce;
+
 	}
 
     public void UpgradeArrow()

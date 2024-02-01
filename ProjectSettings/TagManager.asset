@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Bow
   - Arrow
+  - Zom
+  - Manager
   layers:
   - Default
   - TransparentFX

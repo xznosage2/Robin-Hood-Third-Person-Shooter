@@ -13,7 +13,7 @@ public class Arrow : MonoBehaviour
     public float destroyTime = 10f;
     AudioSource arrowAudio;
     int playerIndex;
-    public int dmg { get; set; }
+    public int dmg { get; set; } = 22;
 
 
     // Start is called before the first frame update
@@ -44,8 +44,8 @@ public class Arrow : MonoBehaviour
         {
             arrowAudio.Play();
             disableRotation = true;
-            rb.isKinematic = true;
-            bx.isTrigger = true;
+            //rb.isKinematic = true;
+            //bx.isTrigger = true;
         }
 
         if (collision.collider.tag == "Target")
@@ -54,6 +54,11 @@ public class Arrow : MonoBehaviour
             GameObject.Find("InGameUI/TargetsLeft").GetComponent<TargetsLeftText>().targetsLeft--;
             collision.collider.gameObject.SetActive(false);
 
+        }
+
+        if (collision.gameObject.tag == "Zom")
+        {
+            collision.gameObject.GetComponent<charaterManager>().TakeDamage(dmg);
         }
     }
 

@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 
 public class UpgradeManager : MonoBehaviour
 {
-    public GameObject player { get; set; }
+    public GameObject player;
     PlayerInput playerInput;
     public GameManager gManager;
     int upgradeCost = 1000;
@@ -18,11 +18,20 @@ public class UpgradeManager : MonoBehaviour
     {
         playerInput = player.GetComponent<PlayerInput>();
         playerInput.actions["Upgrade"].started += upgrade;
+
+        
     }
 
+	private void Start()
+	{
+		gManager = player.GetComponent<charaterManager>().gameManager;
+	}
 
-    public void upgrade(InputAction.CallbackContext context)
+
+	public void upgrade(InputAction.CallbackContext context)
     {
+        Debug.Log("Uppies");
+
         if (player.GetComponent<charaterManager>().getScore() >= upgradeCost)
         {
             player.GetComponent<Shoot>().UpgradeArrow();

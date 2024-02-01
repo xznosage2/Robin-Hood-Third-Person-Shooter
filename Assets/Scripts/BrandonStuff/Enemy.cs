@@ -106,11 +106,6 @@ public class Enemy : MonoBehaviour
         alreadyAttacked = false;
     }
 
-    private void DestroyEnemy()
-    {
-        Destroy(gameObject);
-    }
-
 	private void OnDrawGizmos()
 	{
 		Gizmos.color = Color.red;
