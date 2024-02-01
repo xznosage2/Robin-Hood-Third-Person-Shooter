@@ -206,6 +206,7 @@ public class MultiplayerManager: MonoBehaviour
 		canvas.planeDistance = 0.101f;
 		// layer 20 is cam1
 		_players[0].transform.GetChild(0).gameObject.layer = 20;
+		_players[0].GetComponent<UpgradeManager>().upgradeText = transform.GetChild(6).GetComponent<TMP_Text>();
 
 		charaterManager charMan = _players[0].GetComponent<charaterManager>();
 
@@ -238,8 +239,9 @@ public class MultiplayerManager: MonoBehaviour
 		canvas.planeDistance = 0.101f;
 		// layer 21 is cam2
 		_players[1].transform.GetChild(1).gameObject.layer = 21;
+        _players[1].GetComponent<UpgradeManager>().upgradeText = transform.GetChild(6).GetComponent<TMP_Text>();
 
-		charaterManager charMan = _players[1].GetComponent<charaterManager>();
+        charaterManager charMan = _players[1].GetComponent<charaterManager>();
 
 		charMan.scoreUI = canvas.transform.GetChild(4).GetComponent<TMP_Text>();
 		charMan.healthUI = canvas.transform.GetChild(7).transform.GetChild(0).GetComponent<UnityEngine.UI.Slider>();
@@ -270,8 +272,9 @@ public class MultiplayerManager: MonoBehaviour
 		canvas.planeDistance = 0.101f;
 		// layer 22 is cam3
 		_players[2].transform.GetChild(1).gameObject.layer = 22;
+        _players[2].GetComponent<UpgradeManager>().upgradeText = transform.GetChild(6).GetComponent<TMP_Text>();
 
-		charaterManager charMan = _players[2].GetComponent<charaterManager>();
+        charaterManager charMan = _players[2].GetComponent<charaterManager>();
 
 		charMan.scoreUI = canvas.transform.GetChild(4).GetComponent<TMP_Text>();
 		charMan.healthUI = canvas.transform.GetChild(7).transform.GetChild(0).GetComponent<UnityEngine.UI.Slider>();
@@ -295,8 +298,9 @@ public class MultiplayerManager: MonoBehaviour
 		canvas.planeDistance = 0.101f;
 		// layer 23 is cam4
 		_players[3].transform.GetChild(1).gameObject.layer = 23;
+        _players[3].GetComponent<UpgradeManager>().upgradeText = transform.GetChild(6).GetComponent<TMP_Text>();
 
-		charaterManager charMan = _players[4].GetComponent<charaterManager>();
+        charaterManager charMan = _players[4].GetComponent<charaterManager>();
 
 		charMan.scoreUI = canvas.transform.GetChild(4).GetComponent<TMP_Text>();
 		charMan.healthUI = canvas.transform.GetChild(7).transform.GetChild(0).GetComponent<UnityEngine.UI.Slider>();

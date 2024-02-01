@@ -9,7 +9,7 @@ public class UpgradeManager : MonoBehaviour
     public GameObject player;
     PlayerInput playerInput;
     public GameManager gManager;
-    [SerializeField] TMP_Text upgradeText;
+    public TMP_Text upgradeText;
     public int upgradeCost = 1000;
     float timer;
 
