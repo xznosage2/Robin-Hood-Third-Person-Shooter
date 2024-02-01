@@ -136,12 +136,15 @@ public class Enemy : MonoBehaviour
 	{
 		foreach (GameObject g in gManager.Players)
 		{
-			float distance = Vector3.Distance(this.gameObject.transform.position, g.transform.position);
-			if (distance < oldDistance)
-			{
-                player = g.transform;
-				oldDistance = distance;
-			}
+            if(g != null)
+            {
+			    float distance = Vector3.Distance(this.gameObject.transform.position, g.transform.position);
+			    if (distance < oldDistance)
+			    {
+                    player = g.transform;
+				    oldDistance = distance;
+			    }
+            }
 		}
 	}
 }
