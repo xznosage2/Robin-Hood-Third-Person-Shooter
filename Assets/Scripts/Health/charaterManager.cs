@@ -64,7 +64,7 @@ public class charaterManager : MonoBehaviour, IDamagable
     public void SetHealth(int wave)
     {
         Debug.Log("Increased Health");
-        health = (int)(wave * 1.05f);
+        health = (int)(wave * 1.05f) + 10;
     }
 
     public void DestroyGameObject()
